@@ -73,8 +73,3 @@ If you have suggestions for further improvements or content you'd like to see on
 please reach out through our GitHub issues or community channels.
 
 Thank you for being part of the aiogram community!
-
-
-```python
-print("Hello, World!")
-```
