@@ -1,6 +1,12 @@
 /* Basic syntax highlighting structure - specific colors in custom-highlight.css */
-.highlight table td { padding: 5px; }
-.highlight table pre { margin: 0; }
+.highlight table td {
+  padding: 5px;
+}
+
+.highlight table pre {
+  margin: 0;
+}
+
 .highlight {
   border-radius: var(--border-radius);
 }
@@ -73,8 +79,8 @@
     padding: 1rem;
     font-size: 0.85rem;
   }
-  
+
   .code-block code {
     font-size: 0.85rem;
   }
-} 
+}

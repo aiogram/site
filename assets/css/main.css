@@ -79,7 +79,7 @@ h1, h2, h3, h4, h5, h6 {
 /* Header & Navigation */
 .site-header {
   margin-bottom: 0;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 1000;
@@ -97,7 +97,7 @@ h1, h2, h3, h4, h5, h6 {
 .navbar.scrolled {
   padding: 0.7rem 0;
   background-color: rgba(26, 32, 44, 0.97) !important;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .navbar-brand {
@@ -124,12 +124,12 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .navbar .nav-link:hover {
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   color: white !important;
 }
 
 .navbar .nav-link.active {
-  background-color: rgba(255,255,255,0.15);
+  background-color: rgba(255, 255, 255, 0.15);
   color: white !important;
 }
 
@@ -246,7 +246,7 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 10;
 }
 
-.hero-buttons.visible, 
+.hero-buttons.visible,
 .hero-buttons .btn.visible {
   opacity: 1;
   transform: translateY(0);
@@ -283,7 +283,7 @@ h1, h2, h3, h4, h5, h6 {
 
 .hero-image {
   max-width: 280px;
-  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
   transition: var(--transition);
   transform: translateZ(20px);
   will-change: transform;
@@ -292,13 +292,13 @@ h1, h2, h3, h4, h5, h6 {
 
 @keyframes logoGlow {
   0% {
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
   }
   50% {
     filter: drop-shadow(0 10px 25px rgba(0, 156, 251, 0.4));
   }
   100% {
-    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+    filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3));
   }
 }
 
@@ -909,7 +909,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .position-sticky .card-header {
-  border-bottom: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 /* Footer */
@@ -1020,11 +1020,11 @@ h1, h2, h3, h4, h5, h6 {
   .hero-section {
     padding: 4rem 0;
   }
-  
+
   .hero-section h1 {
     font-size: 2.5rem;
   }
-  
+
   .section-heading {
     font-size: 1.75rem;
   }
@@ -1034,16 +1034,16 @@ h1, h2, h3, h4, h5, h6 {
   .hero-section {
     padding: 3rem 0;
   }
-  
+
   .hero-section h1 {
     font-size: 2rem;
   }
-  
+
   .btn-lg {
     padding: 0.6rem 1.5rem;
     font-size: 1rem;
   }
-  
+
   .section-heading {
     font-size: 1.5rem;
   }
@@ -1235,7 +1235,7 @@ a:hover .badge {
 
 .navbar .nav-link:hover {
   transform: none;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   color: white !important;
 }
 
@@ -1261,4 +1261,4 @@ a:hover .badge {
 .ukraine-badge-small {
   font-size: 0.75em;
   cursor: help;
-} 
+}

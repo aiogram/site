@@ -6,7 +6,8 @@
   <div class="d-flex align-items-center">
     {% if author.avatar %}
     <div class="author-avatar me-3">
-      <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" class="rounded-circle" width="60" height="60">
+      <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" class="rounded-circle" width="60"
+           height="60">
     </div>
     {% endif %}
     <div class="author-info">
@@ -29,4 +30,4 @@
     </div>
   </div>
 </div>
-{% endif %} 
+{% endif %}

@@ -16,6 +16,7 @@ aiogram is a modern and fully asynchronous framework for Telegram Bot API writte
 ## External Resources
 
 The aiogram website integrates with several external resources:
+
 - The **Documentation** is hosted separately at [docs.aiogram.dev](https://docs.aiogram.dev)
 - The **Blog** content is provided via the Telegram channel [@aiogram_live](https://telegram.me/s/aiogram_live) rather than being part of the Jekyll site
 - The site also links to the GitHub repository and other community resources

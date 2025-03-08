@@ -17,7 +17,8 @@
 <link rel="apple-touch-icon" sizes="144x144" href="{{ '/assets/images/icons/apple-icon-144x144.png' | relative_url }}">
 <link rel="apple-touch-icon" sizes="152x152" href="{{ '/assets/images/icons/apple-icon-152x152.png' | relative_url }}">
 <link rel="apple-touch-icon" sizes="180x180" href="{{ '/assets/images/icons/apple-icon-180x180.png' | relative_url }}">
-<link rel="icon" type="image/png" sizes="192x192"  href="{{ '/assets/images/icons/android-icon-192x192.png' | relative_url }}">
+<link rel="icon" type="image/png" sizes="192x192"
+      href="{{ '/assets/images/icons/android-icon-192x192.png' | relative_url }}">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ '/assets/images/icons/favicon-32x32.png' | relative_url }}">
 <link rel="icon" type="image/png" sizes="96x96" href="{{ '/assets/images/icons/favicon-96x96.png' | relative_url }}">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ '/assets/images/icons/favicon-16x16.png' | relative_url }}">
@@ -29,9 +30,13 @@
 <script async src="https://www.googletagmanager.com/gtag/js?id={{ site.google_analytics }}"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
+
+  function gtag() {
+    dataLayer.push(arguments);
+  }
+
   gtag('js', new Date());
 
   gtag('config', '{{ site.google_analytics }}');
 </script>
-{% endif %} 
+{% endif %}

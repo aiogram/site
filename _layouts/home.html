@@ -36,7 +36,8 @@ layout: default
       </div>
       <div class="col-lg-5 text-center">
         <div class="hero-image-container animate-on-scroll">
-          <img src="{{ '/assets/images/aiogram-logo.svg' | relative_url }}" alt="aiogram logo" class="img-fluid hero-image">
+          <img src="{{ '/assets/images/aiogram-logo.svg' | relative_url }}" alt="aiogram logo"
+               class="img-fluid hero-image">
           <div class="hero-background-shape"></div>
         </div>
       </div>
@@ -131,8 +132,10 @@ layout: default
     <div class="row align-items-center">
       <div class="col-lg-5 mb-4 mb-lg-0">
         <h2 class="section-heading scroll-animate-left">Quick Start</h2>
-        <p class="mb-4 scroll-animate-left">Get started with aiogram in minutes. Here's a simple example to create your first Telegram bot:</p>
-        <a href="https://docs.aiogram.dev/en/latest/index.html#simple-usage" class="btn btn-primary scroll-animate-left" target="_blank">
+        <p class="mb-4 scroll-animate-left">Get started with aiogram in minutes. Here's a simple example to create your
+          first Telegram bot:</p>
+        <a href="https://docs.aiogram.dev/en/latest/index.html#simple-usage" class="btn btn-primary scroll-animate-left"
+           target="_blank">
           <i class="bi bi-lightning-charge me-2"></i>See full quickstart guide
         </a>
       </div>
@@ -144,34 +147,34 @@ layout: default
               <i class="bi bi-clipboard"></i> Copy
             </button>
           </div>
-{% highlight python %}
-import asyncio
-from os import getenv
+          {% highlight python %}
+          import asyncio
+          from os import getenv
 
-from aiogram import Bot, Dispatcher
-from aiogram.filters import Command
-from aiogram.types import Message
+          from aiogram import Bot, Dispatcher
+          from aiogram.filters import Command
+          from aiogram.types import Message
 
-TOKEN = getenv("BOT_TOKEN")
+          TOKEN = getenv("BOT_TOKEN")
 
-dp = Dispatcher()
-
-
-# Command handler
-@dp.message(Command("start"))
-async def command_start_handler(message: Message) -> None:
-    await message.answer("Hello! I'm a bot created with aiogram.")
+          dp = Dispatcher()
 
 
-# Run the bot
-async def main() -> None:
-    bot = Bot(token=TOKEN)
-    await dp.start_polling(bot)
+          # Command handler
+          @dp.message(Command("start"))
+          async def command_start_handler(message: Message) -> None:
+          await message.answer("Hello! I'm a bot created with aiogram.")
 
 
-if __name__ == "__main__":
-    asyncio.run(main())
-{% endhighlight %}
+          # Run the bot
+          async def main() -> None:
+          bot = Bot(token=TOKEN)
+          await dp.start_polling(bot)
+
+
+          if __name__ == "__main__":
+          asyncio.run(main())
+          {% endhighlight %}
         </div>
       </div>
     </div>
@@ -184,7 +187,8 @@ if __name__ == "__main__":
     <div class="row justify-content-center">
       <div class="col-lg-8 text-center">
         <h2 class="text-white mb-4 scroll-animate-fade">Ready to build your Telegram bot?</h2>
-        <p class="text-white-50 mb-4 scroll-animate-fade">Start creating powerful, interactive bots with aiogram today!</p>
+        <p class="text-white-50 mb-4 scroll-animate-fade">Start creating powerful, interactive bots with aiogram
+          today!</p>
         <div class="d-flex flex-wrap justify-content-center gap-3 scroll-animate-fade">
           <a href="https://docs.aiogram.dev" class="btn btn-light btn-lg" target="_blank">
             <i class="bi bi-book me-2"></i>Read the Docs
@@ -196,4 +200,4 @@ if __name__ == "__main__":
       </div>
     </div>
   </div>
-</div> 
+</div>

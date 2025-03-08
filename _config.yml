@@ -1,7 +1,7 @@
 # Site settings
 title: aiogram
 description: >-
-  A modern and fully asynchronous framework for Telegram Bot API 
+  A modern and fully asynchronous framework for Telegram Bot API
   written in Python using asyncio and aiohttp.
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://aiogram.dev" # the base hostname & protocol for your site, e.g. http://example.com
@@ -27,19 +27,16 @@ github:
 
 # Default layouts
 defaults:
-  -
-    scope:
+  - scope:
       path: ""
     values:
       layout: "default"
-  -
-    scope:
+  - scope:
       path: "_posts"
     values:
       layout: "post"
       permalink: "/blog/:year/:month/:day/:title/"
-  -
-    scope:
+  - scope:
       path: "blog/tag"
     values:
       layout: "tag"

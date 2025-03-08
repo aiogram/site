@@ -1,5 +1,5 @@
 // Enable tooltips and popovers from Bootstrap
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   // Initialize tooltips
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
   var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 
   // Parallax effect implementation
-  const parallaxHandler = function() {
+  const parallaxHandler = function () {
     const heroSection = document.querySelector('.hero-section');
     const heroImage = document.querySelector('.hero-image');
     const heroShape = document.querySelector('.hero-background-shape');
@@ -26,9 +26,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Elements to animate with different speeds
     const parallaxElems = [
-      { elem: heroSection, speed: 0.05, property: '--scroll-offset' },
-      { elem: heroSection, speed: 0.08, property: '--scroll-offset-deep' },
-      { elem: heroImage.parentNode, speed: -0.1, transform: true, base: 'translateZ(0px)' },
+      {elem: heroSection, speed: 0.05, property: '--scroll-offset'},
+      {elem: heroSection, speed: 0.08, property: '--scroll-offset-deep'},
+      {elem: heroImage.parentNode, speed: -0.1, transform: true, base: 'translateZ(0px)'},
     ];
 
     // Sections with parallax backgrounds
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function() {
     if (heroSection) {
       // Make all hero section elements visible immediately
       const heroElements = heroSection.querySelectorAll('.animate-on-scroll');
-      heroElements.forEach(function(element) {
+      heroElements.forEach(function (element) {
         element.classList.add('visible');
       });
 
@@ -133,12 +133,12 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     // Listen for scroll events
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', function () {
       requestTick();
 
       // Animate on scroll elements
       const animatedElements = document.querySelectorAll('.animate-on-scroll, .scroll-animate-left, .scroll-animate-right, .scroll-animate-fade, .scroll-animate-scale');
-      animatedElements.forEach(function(element) {
+      animatedElements.forEach(function (element) {
         if (isElementInViewport(element)) {
           if (element.classList.contains('animate-on-scroll')) {
             element.classList.add('visible');
@@ -172,60 +172,59 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', applyParallax);
 
 
+    // Logo tilt effect implementation
+    const initLogoTiltEffect = function () {
+      const logoContainer = document.querySelector('.hero-image-container');
+      const logo = document.querySelector('.hero-image');
 
-      // Logo tilt effect implementation
-      const initLogoTiltEffect = function() {
-          const logoContainer = document.querySelector('.hero-image-container');
-          const logo = document.querySelector('.hero-image');
+      if (!logoContainer || !logo) return;
 
-          if (!logoContainer || !logo) return;
+      const maxTiltDegrees = 8; // Reduced maximum tilt angle from 15 to 8 degrees
+      const tiltSensitivity = 80; // Increased sensitivity (lower number = more sensitive)
 
-          const maxTiltDegrees = 8; // Reduced maximum tilt angle from 15 to 8 degrees
-          const tiltSensitivity = 80; // Increased sensitivity (lower number = more sensitive)
+      // Track current tilt state for smoother transitions
+      let currentTiltX = 0;
+      let currentTiltY = 0;
+      const smoothingFactor = 0.25; // Controls how quickly the tilt moves toward target position
 
-          // Track current tilt state for smoother transitions
-          let currentTiltX = 0;
-          let currentTiltY = 0;
-          const smoothingFactor = 0.25; // Controls how quickly the tilt moves toward target position
+      // Detect mouse movement near logo
+      document.addEventListener('mousemove', function (e) {
+        const containerRect = logoContainer.getBoundingClientRect();
+        const containerCenterX = containerRect.left + containerRect.width / 2;
+        const containerCenterY = containerRect.top + containerRect.height / 2;
 
-          // Detect mouse movement near logo
-          document.addEventListener('mousemove', function(e) {
-              const containerRect = logoContainer.getBoundingClientRect();
-              const containerCenterX = containerRect.left + containerRect.width / 2;
-              const containerCenterY = containerRect.top + containerRect.height / 2;
+        // Calculate distance from mouse to center of container
+        const distanceX = e.clientX - containerCenterX;
+        const distanceY = e.clientY - containerCenterY;
+        const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
 
-              // Calculate distance from mouse to center of container
-              const distanceX = e.clientX - containerCenterX;
-              const distanceY = e.clientY - containerCenterY;
-              const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+        // Define the area around the logo that triggers the effect
+        const detectionRadius = containerRect.width * 1.5;
 
-              // Define the area around the logo that triggers the effect
-              const detectionRadius = containerRect.width * 1.5;
+        // Calculate target tilt angles
+        let targetTiltX = 0;
+        let targetTiltY = 0;
 
-              // Calculate target tilt angles
-              let targetTiltX = 0;
-              let targetTiltY = 0;
+        if (distance < detectionRadius) {
+          // Calculate tilt using a non-linear curve to enhance effect in central area
+          targetTiltX = -Math.sin(distanceY / tiltSensitivity) * maxTiltDegrees;
+          targetTiltY = Math.sin(distanceX / tiltSensitivity) * maxTiltDegrees;
 
-              if (distance < detectionRadius) {
-                  // Calculate tilt using a non-linear curve to enhance effect in central area
-                  targetTiltX = -Math.sin(distanceY / tiltSensitivity) * maxTiltDegrees;
-                  targetTiltY = Math.sin(distanceX / tiltSensitivity) * maxTiltDegrees;
+          // Smoothly interpolate current tilt toward target tilt
+          currentTiltX += (targetTiltX - currentTiltX) * smoothingFactor;
+          currentTiltY += (targetTiltY - currentTiltY) * smoothingFactor;
+        } else {
+          // Return to neutral position when out of range, also with smooth interpolation
+          currentTiltX += (0 - currentTiltX) * smoothingFactor;
+          currentTiltY += (0 - currentTiltY) * smoothingFactor;
+        }
 
-                  // Smoothly interpolate current tilt toward target tilt
-                  currentTiltX += (targetTiltX - currentTiltX) * smoothingFactor;
-                  currentTiltY += (targetTiltY - currentTiltY) * smoothingFactor;
-              } else {
-                  // Return to neutral position when out of range, also with smooth interpolation
-                  currentTiltX += (0 - currentTiltX) * smoothingFactor;
-                  currentTiltY += (0 - currentTiltY) * smoothingFactor;
-              }
+        // Apply the tilt effect using CSS transform
+        logo.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg)`;
+      });
+    };
 
-              // Apply the tilt effect using CSS transform
-              logo.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg)`;
-          });
-      };
-
-      initLogoTiltEffect();
+    initLogoTiltEffect();
   };
 
   // Initialize parallax effects
@@ -233,21 +232,21 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Copy button functionality for code blocks
   const copyButtons = document.querySelectorAll('.copy-button');
-  copyButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
+  copyButtons.forEach(function (button) {
+    button.addEventListener('click', function () {
       const codeBlock = this.closest('.code-block').querySelector('code');
       const textToCopy = codeBlock.textContent;
 
-      navigator.clipboard.writeText(textToCopy).then(function() {
+      navigator.clipboard.writeText(textToCopy).then(function () {
         button.classList.add('copied');
         button.innerHTML = '<i class="bi bi-check"></i> Copied!';
-        setTimeout(function() {
+        setTimeout(function () {
           button.classList.remove('copied');
           button.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
         }, 2000);
-      }, function() {
+      }, function () {
         button.innerHTML = '<i class="bi bi-exclamation-circle"></i> Error!';
-        setTimeout(function() {
+        setTimeout(function () {
           button.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
         }, 2000);
       });
@@ -256,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Add language label and copy button to code blocks
   const codeBlocks = document.querySelectorAll('pre code');
-  codeBlocks.forEach(function(codeBlock) {
+  codeBlocks.forEach(function (codeBlock) {
     // Skip if already in a code-block container
     if (codeBlock.closest('.code-block')) return;
 
@@ -266,7 +265,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Get language from class
     let language = '';
-    codeBlock.classList.forEach(function(className) {
+    codeBlock.classList.forEach(function (className) {
       if (className.startsWith('language-')) {
         language = className.replace('language-', '');
       }
@@ -284,19 +283,19 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add click event to copy button
     const copyButton = header.querySelector('.copy-button');
-    copyButton.addEventListener('click', function() {
+    copyButton.addEventListener('click', function () {
       const textToCopy = codeBlock.textContent;
 
-      navigator.clipboard.writeText(textToCopy).then(function() {
+      navigator.clipboard.writeText(textToCopy).then(function () {
         copyButton.classList.add('copied');
         copyButton.innerHTML = '<i class="bi bi-check"></i> Copied!';
-        setTimeout(function() {
+        setTimeout(function () {
           copyButton.classList.remove('copied');
           copyButton.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
         }, 2000);
-      }, function() {
+      }, function () {
         copyButton.innerHTML = '<i class="bi bi-exclamation-circle"></i> Error!';
-        setTimeout(function() {
+        setTimeout(function () {
           copyButton.innerHTML = '<i class="bi bi-clipboard"></i> Copy';
         }, 2000);
       });
@@ -311,4 +310,4 @@ document.addEventListener('DOMContentLoaded', function() {
       rect.bottom >= 0
     );
   }
-}); 
+});

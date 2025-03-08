@@ -1,45 +1,45 @@
 /* Custom syntax highlighting colors to match the aiogram brand */
 .highlight .k, .highlight .kd, .highlight .kn {
-  color: #38bdf8;  /* light blue for keywords: from, import, async, def */
+  color: #38bdf8; /* light blue for keywords: from, import, async, def */
   font-weight: normal;
 }
 
 .highlight .n, .highlight .nf {
-  color: #2dd4bf;  /* teal for function names */
+  color: #2dd4bf; /* teal for function names */
   font-weight: normal;
 }
 
 .highlight .nt {
-  color: #38bdf8;  /* light blue for function names */
+  color: #38bdf8; /* light blue for function names */
 }
 
 .highlight .o, .highlight .p {
-  color: #e2e8f0;  /* light gray for operators and punctuation */
+  color: #e2e8f0; /* light gray for operators and punctuation */
 }
 
 .highlight .nb {
-  color: #60a5fa;  /* blue for built-in names */
+  color: #60a5fa; /* blue for built-in names */
 }
 
 .highlight .bp {
-  color: #60a5fa;  /* blue for built-in names like self */
+  color: #60a5fa; /* blue for built-in names like self */
 }
 
 .highlight .s, .highlight .s1, .highlight .s2 {
-  color: #34d399;  /* green for strings */
+  color: #34d399; /* green for strings */
 }
 
 .highlight .c, .highlight .c1, .highlight .cm {
-  color: #94a3b8;  /* slate gray for comments */
+  color: #94a3b8; /* slate gray for comments */
   font-style: italic;
 }
 
 .highlight .cpf, .highlight .cp {
-  color: #94a3b8;  /* slate gray for preprocessor statements */
+  color: #94a3b8; /* slate gray for preprocessor statements */
 }
 
 .highlight .mi, .highlight .mf {
-  color: #f472b6;  /* pink for numbers */
+  color: #f472b6; /* pink for numbers */
 }
 
 /* Code block styling */
@@ -120,8 +120,8 @@
     padding: 1rem;
     font-size: 0.85rem;
   }
-  
+
   .code-block code {
     font-size: 0.85rem;
   }
-} 
+}

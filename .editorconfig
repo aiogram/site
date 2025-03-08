@@ -1,0 +1,41 @@
+# top-most EditorConfig file
+root = true
+
+# General settings for all files
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Markdown files
+[*.md]
+max_line_length = off
+trim_trailing_whitespace = false
+
+# YAML files (config, data files for Jekyll)
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2
+
+# HTML files (Jekyll templates)
+[*.html]
+indent_style = space
+indent_size = 2
+
+# CSS and SCSS files
+[*.{css,scss}]
+indent_style = space
+indent_size = 2
+
+# JavaScript files
+[*.js]
+indent_style = space
+indent_size = 2
+
+# Ruby files
+[*.rb]
+indent_style = space
+indent_size = 2

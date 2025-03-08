@@ -26,7 +26,6 @@ Desktop.ini
 *.sublime-workspace
 *.komodoproject
 .komodotools/
-.editorconfig
 
 # Logs and databases
 *.log
@@ -51,4 +50,4 @@ yarn.lock
 *.bak
 *.orig
 tmp/
-.tmp/ 
+.tmp/
