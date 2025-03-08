@@ -7,7 +7,7 @@ baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://aiogram.dev" # the base hostname & protocol for your site, e.g. http://example.com
 
 # Google Analytics
-google_analytics: GTM-W5ZFJV4
+google_analytics: G-X0CZ79CMH4
 
 # Build settings
 markdown: kramdown
