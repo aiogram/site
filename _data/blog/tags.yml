@@ -1,0 +1,41 @@
+update:
+  name: Update
+  color: info
+  description: Stay informed about the latest releases, changes, and improvements to aiogram
+  icon: arrow-up-circle-fill
+
+insight:
+  name: Insight
+  color: success
+  description: Dive deeper into the concepts, architecture, and design decisions of aiogram
+  icon: lightbulb-fill
+
+example:
+  name: Example
+  color: warning
+  description: Learn from practical examples and code samples for aiogram bot development
+  icon: code-slash
+
+guide:
+  name: Guide
+  color: danger
+  description: Step-by-step guides to help you build features with aiogram
+  icon: book-fill
+
+news:
+  name: News
+  color: secondary
+  description: News, events, and announcements related to aiogram and the Telegram Bot ecosystem
+  icon: newspaper
+
+tutorial:
+  name: Tutorial
+  color: primary
+  description: Comprehensive tutorials to learn how to develop Telegram bots with aiogram
+  icon: journal-code
+
+community:
+  name: Community
+  color: dark
+  description: Community contributions, user stories, and ecosystem developments
+  icon: people-fill 

@@ -1,0 +1,13 @@
+aiogram_team:
+  name: aiogram Team
+  bio: The official aiogram development team.
+  avatar: /assets/images/aiogram-logo.svg
+  github: aiogram
+  telegram: aiogram
+  
+jrootjunior:
+  name: Alex Root Junior
+  bio: Project Owner
+  avatar: https://i.pravatar.cc/150?img=1
+  github: JRootJunior
+  telegram: illemius

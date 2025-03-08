@@ -1,0 +1,32 @@
+{% assign author_id = include.author_id | default: "aiogram_team" %}
+{% assign author = site.data.blog.authors[author_id] %}
+
+{% if author %}
+<div class="author-card p-4 rounded border mb-4">
+  <div class="d-flex align-items-center">
+    {% if author.avatar %}
+    <div class="author-avatar me-3">
+      <img src="{{ author.avatar | relative_url }}" alt="{{ author.name }}" class="rounded-circle" width="60" height="60">
+    </div>
+    {% endif %}
+    <div class="author-info">
+      <h5 class="mb-1">{{ author.name }}</h5>
+      {% if author.bio %}
+      <p class="text-muted mb-2 small">{{ author.bio }}</p>
+      {% endif %}
+      <div class="author-links">
+        {% if author.github %}
+        <a href="https://github.com/{{ author.github }}" target="_blank" class="btn btn-sm btn-outline-secondary me-1">
+          <i class="bi bi-github"></i>
+        </a>
+        {% endif %}
+        {% if author.telegram %}
+        <a href="https://t.me/{{ author.telegram }}" target="_blank" class="btn btn-sm btn-outline-primary me-1">
+          <i class="bi bi-telegram"></i>
+        </a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %} 

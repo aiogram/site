@@ -1,0 +1,67 @@
+---
+layout: blog
+title: All Tags
+permalink: /blog/tags/
+---
+
+<h1 class="mb-4">{{ page.title }}</h1>
+<p class="lead mb-5">Browse all topics covered in the aiogram blog</p>
+
+{% assign all_tags = "" | split: "" %}
+{% for post in site.posts %}
+  {% for tag in post.tags %}
+    {% unless all_tags contains tag %}
+      {% assign all_tags = all_tags | push: tag %}
+    {% endunless %}
+  {% endfor %}
+{% endfor %}
+
+{% if all_tags.size > 0 %}
+  <div class="tags-list mb-5">
+    <div class="row">
+      {% for tag in all_tags %}
+        {% assign tag_info = site.data.blog.tags[tag] %}
+        {% assign tag_class = "badge-" %}
+        {% if tag_info %}
+          {% assign tag_class = tag_class | append: tag_info.color %}
+          {% assign tag_name = tag_info.name %}
+          {% assign tag_icon = tag_info.icon %}
+          {% assign tag_description = tag_info.description %}
+        {% else %}
+          {% assign tag_class = tag_class | append: "primary" %}
+          {% assign tag_name = tag %}
+          {% assign tag_icon = "tag-fill" %}
+          {% assign tag_description = "Posts related to " | append: tag %}
+        {% endif %}
+      
+        <div class="col-md-6 mb-4">
+          <div class="card h-100 tag-card">
+            <div class="card-body">
+              <h2 class="h5 mb-3">
+                <i class="bi bi-{{ tag_icon }} me-2"></i>
+                <a href="{{ '/blog/tag/' | append: tag | relative_url }}" class="text-decoration-none">
+                  {{ tag_name }}
+                  <span class="badge {{ tag_class }} ms-2">
+                    {% assign post_count = site.posts | where_exp: "post", "post.tags contains tag" | size %}
+                    {{ post_count }}
+                  </span>
+                </a>
+              </h2>
+              <p class="text-muted">{{ tag_description }}</p>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% else %}
+  <div class="alert alert-info">
+    No tags available yet. Check back soon!
+  </div>
+{% endif %}
+
+<div class="mt-4">
+  <a href="{{ '/blog/' | relative_url }}" class="btn btn-outline-primary">
+    <i class="bi bi-arrow-left me-2"></i>Back to Blog
+  </a>
+</div> 

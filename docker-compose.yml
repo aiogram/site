@@ -1,0 +1,13 @@
+services:
+  jekyll:
+    build: .
+    volumes:
+      - .:/srv/jekyll
+      - ./vendor/bundle:/usr/local/bundle
+    ports:
+      - "4000:4000"
+    environment:
+      - JEKYLL_ENV=development
+      - JEKYLL_UID=1000
+      - JEKYLL_GID=1000
+    command: jekyll serve --livereload --host 0.0.0.0 

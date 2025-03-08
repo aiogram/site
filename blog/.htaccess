@@ -1,0 +1,11 @@
+# Redirects for tag pages
+RewriteEngine On
+RewriteBase /blog/
+RewriteRule ^tag/([^/]+)/?$ /blog/tag/$1/ [R=301,L]
+
+# Custom 404 page
+ErrorDocument 404 /404.html
+
+# Allow directory listing for development only
+# Comment this out in production
+Options -Indexes 

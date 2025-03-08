@@ -1,0 +1,106 @@
+---
+layout: default
+title: All Tags
+permalink: /blog/tags/
+---
+
+<div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-md-8">
+      <h1 class="mb-4">{{ page.title }}</h1>
+      <p class="lead mb-5">Browse all topics covered in the aiogram blog</p>
+
+      {% assign all_tags = "" | split: "" %}
+      {% for post in site.posts %}
+        {% for tag in post.tags %}
+          {% unless all_tags contains tag %}
+            {% assign all_tags = all_tags | push: tag %}
+          {% endunless %}
+        {% endfor %}
+      {% endfor %}
+
+      {% if all_tags.size > 0 %}
+        <div class="tags-list mb-5">
+          <div class="row">
+            {% for tag in all_tags %}
+              {% assign tag_info = site.data.blog.tags[tag] %}
+              {% assign tag_class = "badge-primary" %}
+              {% if tag == "update" %}
+                {% assign tag_class = "badge-info" %}
+                {% assign tag_icon = "arrow-up-circle-fill" %}
+                {% assign tag_description = "Stay informed about the latest releases, changes, and improvements to aiogram" %}
+              {% elsif tag == "insight" %}
+                {% assign tag_class = "badge-success" %}
+                {% assign tag_icon = "lightbulb-fill" %}
+                {% assign tag_description = "Dive deeper into the concepts, architecture, and design decisions of aiogram" %}
+              {% elsif tag == "example" %}
+                {% assign tag_class = "badge-warning" %}
+                {% assign tag_icon = "code-slash" %}
+                {% assign tag_description = "Learn from practical examples and code samples for aiogram bot development" %}
+              {% elsif tag == "guide" %}
+                {% assign tag_class = "badge-danger" %}
+                {% assign tag_icon = "book-fill" %}
+                {% assign tag_description = "Step-by-step guides to help you build features with aiogram" %}
+              {% elsif tag == "news" %}
+                {% assign tag_class = "badge-secondary" %}
+                {% assign tag_icon = "newspaper" %}
+                {% assign tag_description = "News, events, and announcements related to aiogram and the Telegram Bot ecosystem" %}
+              {% elsif tag == "tutorial" %}
+                {% assign tag_class = "badge-primary" %}
+                {% assign tag_icon = "journal-code" %}
+                {% assign tag_description = "Comprehensive tutorials to learn how to develop Telegram bots with aiogram" %}
+              {% elsif tag == "community" %}
+                {% assign tag_class = "badge-dark" %}
+                {% assign tag_icon = "people-fill" %}
+                {% assign tag_description = "Community contributions, user stories, and ecosystem developments" %}
+              {% else %}
+                {% assign tag_icon = "tag-fill" %}
+                {% assign tag_description = "Posts related to " | append: tag %}
+              {% endif %}
+              
+              {% if tag_class == "badge-light" %}
+                {% assign text_class = "text-dark" %}
+              {% else %}
+                {% assign text_class = "text-white" %}
+              {% endif %}
+            
+              <div class="col-md-6 mb-4">
+                <div class="card h-100 tag-card">
+                  <div class="card-body">
+                    <h2 class="h5 mb-3">
+                      <i class="bi bi-{{ tag_icon }} me-2"></i>
+                      <a href="{{ '/blog/tag/' | append: tag | append: '/' | relative_url }}" class="text-decoration-none">
+                        {{ tag | capitalize }}
+                        <span class="badge {{ tag_class }} {{ text_class }} ms-2">
+                          {% assign post_count = site.posts | where_exp: "post", "post.tags contains tag" | size %}
+                          {{ post_count }}
+                        </span>
+                      </a>
+                    </h2>
+                    <p class="text-muted">{{ tag_description }}</p>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+      {% else %}
+        <div class="alert alert-info">
+          No tags available yet. Check back soon!
+        </div>
+      {% endif %}
+
+      <div class="mt-4">
+        <a href="{{ '/blog/' | relative_url }}" class="btn btn-outline-primary">
+          <i class="bi bi-arrow-left me-2"></i>Back to Blog
+        </a>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="position-sticky" style="top: 2rem;">
+        {% include blog/sidebar.html %}
+      </div>
+    </div>
+  </div>
+</div> 

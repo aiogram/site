@@ -1,0 +1,67 @@
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <i class="bi bi-info-circle-fill me-2"></i>About the Blog
+  </div>
+  <div class="card-body">
+    <p>The aiogram blog features tutorials, updates, and insights about the framework. Subscribe to stay informed about the latest developments.</p>
+    <div class="d-flex gap-2">
+      <a href="{{ '/feed.xml' | relative_url }}" class="btn btn-outline-primary">
+        <i class="bi bi-rss me-2"></i>RSS
+      </a>
+      <a href="https://telegram.me/s/aiogram_live" class="btn btn-outline-primary">
+        <i class="bi bi-telegram me-2"></i>Telegram
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+    <div>
+      <i class="bi bi-tags me-2"></i>Tags
+    </div>
+    <a href="{{ '/blog/tags/' | relative_url }}" class="btn btn-sm btn-light">
+      <i class="bi bi-grid me-1"></i>View All
+    </a>
+  </div>
+  <div class="card-body">
+    <div class="d-flex flex-wrap gap-2">
+      {% assign all_tags = "" | split: "" %}
+      {% for post in site.posts %}
+        {% for tag in post.tags %}
+          {% unless all_tags contains tag %}
+            {% assign all_tags = all_tags | push: tag %}
+          {% endunless %}
+        {% endfor %}
+      {% endfor %}
+      
+      {% for tag in all_tags limit:10 %}
+        {% include blog/tag_badge.html tag=tag active=page.tag %}
+      {% endfor %}
+      
+      {% if all_tags.size > 10 %}
+        <a href="{{ '/blog/tags/' | relative_url }}" class="badge badge-secondary">
+          +{{ all_tags.size | minus: 10 }} more...
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<div class="card mb-4 shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <i class="bi bi-clock-fill me-2"></i>Latest Posts
+  </div>
+  <div class="card-body">
+    <ul class="list-unstyled mb-0">
+      {% for post in site.posts limit:5 %}
+      <li class="mb-3 pb-3 {% unless forloop.last %}border-bottom{% endunless %}">
+        <a href="{{ post.url | relative_url }}" class="d-block fw-bold text-decoration-none mb-1">{{ post.title }}</a>
+        <div class="small text-muted">
+          <i class="bi bi-calendar3 me-1"></i>{{ post.date | date: "%b %-d, %Y" }}
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+</div> 

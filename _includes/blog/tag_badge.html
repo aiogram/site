@@ -1,0 +1,21 @@
+{% assign tag_info = site.data.blog.tags[include.tag] %}
+{% assign tag_class = "badge-" %}
+{% if tag_info %}
+  {% assign tag_class = tag_class | append: tag_info.color %}
+  {% assign tag_name = tag_info.name %}
+  {% assign tag_icon = tag_info.icon %}
+{% else %}
+  {% assign tag_class = tag_class | append: "primary" %}
+  {% assign tag_name = include.tag %}
+  {% assign tag_icon = "tag-fill" %}
+{% endif %}
+
+{% if tag_class == "badge-light" %}
+  {% assign text_class = "text-dark" %}
+{% else %}
+  {% assign text_class = "text-white" %}
+{% endif %}
+
+<a href="{{ '/blog/tag/' | append: include.tag | relative_url }}" class="badge {{ tag_class }} {{ text_class }} text-decoration-none {% if include.active %}active{% endif %}">
+  {% if tag_icon %}<i class="bi bi-{{ tag_icon }} me-1"></i>{% endif %}{{ tag_name }}
+</a>{% unless include.last %} {% endunless %} 

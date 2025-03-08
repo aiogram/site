@@ -1,0 +1,80 @@
+/* Basic syntax highlighting structure - specific colors in custom-highlight.css */
+.highlight table td { padding: 5px; }
+.highlight table pre { margin: 0; }
+.highlight {
+  border-radius: var(--border-radius);
+}
+
+/* Code block structure */
+.code-block {
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 2rem;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.code-header {
+  padding: 0.75rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.code-block pre.highlight {
+  margin: 0;
+  padding: 1.25rem;
+  overflow-x: visible;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  max-width: 100%;
+  line-height: 1.6;
+}
+
+.code-block code {
+  font-family: var(--font-family-monospace);
+  background-color: transparent;
+  padding: 0;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.copy-button {
+  border: none;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.copy-button i {
+  font-size: 0.9em;
+}
+
+.copy-button:hover {
+  outline: none;
+}
+
+.content-section pre {
+  margin-bottom: 1.5rem;
+  border-radius: var(--border-radius);
+}
+
+.content-section pre code {
+  color: inherit;
+}
+
+@media (max-width: 767.98px) {
+  .code-block pre.highlight {
+    padding: 1rem;
+    font-size: 0.85rem;
+  }
+  
+  .code-block code {
+    font-size: 0.85rem;
+  }
+} 

@@ -1,0 +1,89 @@
+# Site settings
+title: aiogram
+description: >-
+  A modern and fully asynchronous framework for Telegram Bot API 
+  written in Python using asyncio and aiohttp.
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "https://aiogram.dev" # the base hostname & protocol for your site, e.g. http://example.com
+
+# Google Analytics
+google_analytics: GTM-W5ZFJV4
+
+# Build settings
+markdown: kramdown
+highlighter: rouge
+permalink: pretty
+
+# Theme settings
+theme: minima
+
+# GitHub Pages settings
+github:
+  is_project_page: true
+  repository_url: https://github.com/aiogram/site
+  repository_name: aiogram/site
+  owner_name: aiogram
+  owner_url: https://github.com/aiogram
+
+# Default layouts
+defaults:
+  -
+    scope:
+      path: ""
+    values:
+      layout: "default"
+  -
+    scope:
+      path: "_posts"
+    values:
+      layout: "post"
+      permalink: "/blog/:year/:month/:day/:title/"
+  -
+    scope:
+      path: "blog/tag"
+    values:
+      layout: "tag"
+
+# Blog settings
+blog:
+  tags:
+    - update
+    - insight
+    - example
+    - guide
+    - news
+    - tutorial
+    - community
+
+# Pagination settings
+paginate: 6
+paginate_path: "/blog/page/:num/"
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-paginate
+
+# External links
+external_links:
+  blog: /blog/
+  docs: https://docs.aiogram.dev
+  github: https://github.com/aiogram/aiogram
+  telegram: https://t.me/aiogram
+
+# Exclude from processing
+exclude:
+  - Dockerfile
+  - docker-compose.yml
+  - vendor
+  - .gitignore
+  - README.md
+  - Gemfile
+  - Gemfile.lock
+  - _blog/
+  - idea/
+  - .git/
+  - .github/
+

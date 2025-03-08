@@ -1,0 +1,54 @@
+# Jekyll build output
+_site/
+.sass-cache/
+.jekyll-cache/
+.jekyll-metadata
+.bundle/
+
+# Bundler config and dependencies
+vendor/
+.bundle/
+Gemfile.lock
+
+# Environment variables
+.env
+
+# System files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# IDE and editor directories
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.komodoproject
+.komodotools/
+.editorconfig
+
+# Logs and databases
+*.log
+*.sql
+*.sqlite
+
+# Docker
+docker-compose.override.yml
+
+# Node.js (if using any node based tools)
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+# Temporary files
+*.swp
+*.swo
+*~
+*.bak
+*.orig
+tmp/
+.tmp/ 
