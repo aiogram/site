@@ -30,7 +30,7 @@ document.addEventListener('DOMContentLoaded', function() {
       { elem: heroSection, speed: 0.08, property: '--scroll-offset-deep' },
       { elem: heroImage.parentNode, speed: -0.1, transform: true, base: 'translateZ(0px)' },
     ];
-    
+
     // Sections with parallax backgrounds
     contentSections.forEach(section => {
       if (section.querySelector('.parallax-bg')) {
@@ -40,7 +40,7 @@ document.addEventListener('DOMContentLoaded', function() {
           transform: true
         });
       }
-      
+
       // Add before pseudo-element if it has a gradient background
       if (section.classList.contains('bg-gradient')) {
         parallaxElems.push({
@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
       heroElements.forEach(function(element) {
         element.classList.add('visible');
       });
-      
+
       // Add visible class to hero buttons too
       if (heroButtons) {
         heroButtons.classList.add('visible');
@@ -71,13 +71,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Apply parallax effect on scroll
     const applyParallax = () => {
       lastScrollY = window.scrollY;
-      
+
       // Apply transforms to parallax elements
       parallaxElems.forEach(item => {
         if (!item.elem) return;
-        
+
         const scrollOffset = lastScrollY * item.speed;
-        
+
         if (item.property) {
           // Use CSS custom property
           item.elem.style.setProperty(item.property, `${scrollOffset}px`);
@@ -91,7 +91,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
       });
-      
+
       // Handle feature cards with scroll-based hover effect
       featureCards.forEach(card => {
         const rect = card.getBoundingClientRect();
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const distance = Math.abs(centerY - cardCenterY);
         const maxDistance = window.innerHeight / 2 + rect.height;
         const proximity = 1 - Math.min(distance / maxDistance, 1);
-        
+
         if (proximity > 0.7) {
           const liftAmount = (proximity - 0.7) * 20; // Max 6px of lift
           card.style.transform = `translateY(-${liftAmount}px)`;
@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', function() {
           card.style.boxShadow = '';
         }
       });
-      
+
       // Badge items subtle parallax
       badgeItems.forEach(badge => {
         const rect = badge.getBoundingClientRect();
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', function() {
           badge.style.transform = `translateZ(0) translateX(${translateX}px)`;
         }
       });
-      
+
       ticking = false;
     };
 
@@ -135,7 +135,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Listen for scroll events
     window.addEventListener('scroll', function() {
       requestTick();
-      
+
       // Animate on scroll elements
       const animatedElements = document.querySelectorAll('.animate-on-scroll, .scroll-animate-left, .scroll-animate-right, .scroll-animate-fade, .scroll-animate-scale');
       animatedElements.forEach(function(element) {
@@ -147,7 +147,7 @@ document.addEventListener('DOMContentLoaded', function() {
           }
         }
       });
-      
+
       // Ensure hero buttons always remain visible once shown
       if (heroButtons) {
         heroButtons.classList.add('visible');
@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', function() {
           btn.classList.add('visible');
         });
       }
-      
+
       // Change navbar background on scroll
       const navbar = document.querySelector('.navbar');
       if (window.scrollY > 50) {
@@ -167,9 +167,65 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Initialize parallax on page load
     applyParallax();
-    
+
     // Handle resize events to recalculate parallax values
     window.addEventListener('resize', applyParallax);
+
+
+
+      // Logo tilt effect implementation
+      const initLogoTiltEffect = function() {
+          const logoContainer = document.querySelector('.hero-image-container');
+          const logo = document.querySelector('.hero-image');
+
+          if (!logoContainer || !logo) return;
+
+          const maxTiltDegrees = 8; // Reduced maximum tilt angle from 15 to 8 degrees
+          const tiltSensitivity = 80; // Increased sensitivity (lower number = more sensitive)
+
+          // Track current tilt state for smoother transitions
+          let currentTiltX = 0;
+          let currentTiltY = 0;
+          const smoothingFactor = 0.25; // Controls how quickly the tilt moves toward target position
+
+          // Detect mouse movement near logo
+          document.addEventListener('mousemove', function(e) {
+              const containerRect = logoContainer.getBoundingClientRect();
+              const containerCenterX = containerRect.left + containerRect.width / 2;
+              const containerCenterY = containerRect.top + containerRect.height / 2;
+
+              // Calculate distance from mouse to center of container
+              const distanceX = e.clientX - containerCenterX;
+              const distanceY = e.clientY - containerCenterY;
+              const distance = Math.sqrt(distanceX * distanceX + distanceY * distanceY);
+
+              // Define the area around the logo that triggers the effect
+              const detectionRadius = containerRect.width * 1.5;
+
+              // Calculate target tilt angles
+              let targetTiltX = 0;
+              let targetTiltY = 0;
+
+              if (distance < detectionRadius) {
+                  // Calculate tilt using a non-linear curve to enhance effect in central area
+                  targetTiltX = -Math.sin(distanceY / tiltSensitivity) * maxTiltDegrees;
+                  targetTiltY = Math.sin(distanceX / tiltSensitivity) * maxTiltDegrees;
+
+                  // Smoothly interpolate current tilt toward target tilt
+                  currentTiltX += (targetTiltX - currentTiltX) * smoothingFactor;
+                  currentTiltY += (targetTiltY - currentTiltY) * smoothingFactor;
+              } else {
+                  // Return to neutral position when out of range, also with smooth interpolation
+                  currentTiltX += (0 - currentTiltX) * smoothingFactor;
+                  currentTiltY += (0 - currentTiltY) * smoothingFactor;
+              }
+
+              // Apply the tilt effect using CSS transform
+              logo.style.transform = `rotateX(${currentTiltX}deg) rotateY(${currentTiltY}deg)`;
+          });
+      };
+
+      initLogoTiltEffect();
   };
 
   // Initialize parallax effects
@@ -181,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function() {
     button.addEventListener('click', function() {
       const codeBlock = this.closest('.code-block').querySelector('code');
       const textToCopy = codeBlock.textContent;
-      
+
       navigator.clipboard.writeText(textToCopy).then(function() {
         button.classList.add('copied');
         button.innerHTML = '<i class="bi bi-check"></i> Copied!';
@@ -203,11 +259,11 @@ document.addEventListener('DOMContentLoaded', function() {
   codeBlocks.forEach(function(codeBlock) {
     // Skip if already in a code-block container
     if (codeBlock.closest('.code-block')) return;
-    
+
     const pre = codeBlock.parentNode;
     const wrapper = document.createElement('div');
     wrapper.className = 'code-block shadow-sm';
-    
+
     // Get language from class
     let language = '';
     codeBlock.classList.forEach(function(className) {
@@ -215,22 +271,22 @@ document.addEventListener('DOMContentLoaded', function() {
         language = className.replace('language-', '');
       }
     });
-    
+
     // Create header
     const header = document.createElement('div');
     header.className = 'code-header';
     header.innerHTML = `<span>${language || 'code'}</span><button class="copy-button"><i class="bi bi-clipboard"></i> Copy</button>`;
-    
+
     // Replace pre with wrapper
     pre.parentNode.insertBefore(wrapper, pre);
     wrapper.appendChild(header);
     wrapper.appendChild(pre);
-    
+
     // Add click event to copy button
     const copyButton = header.querySelector('.copy-button');
     copyButton.addEventListener('click', function() {
       const textToCopy = codeBlock.textContent;
-      
+
       navigator.clipboard.writeText(textToCopy).then(function() {
         copyButton.classList.add('copied');
         copyButton.innerHTML = '<i class="bi bi-check"></i> Copied!';

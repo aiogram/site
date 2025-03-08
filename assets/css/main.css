@@ -149,6 +149,26 @@ h1, h2, h3, h4, h5, h6 {
   --scroll-offset: 0px;
 }
 
+/* Logo tilt effect styling */
+.hero-image-container {
+  perspective: 1000px;
+  transition: transform 0.2s ease-out;
+}
+
+.hero-image {
+  transition: transform 0.5s ease-out;
+}
+
+/* Logo tilt effect styling */
+.hero-image-container {
+  perspective: 1000px;
+  transition: transform 0.2s ease-out;
+}
+
+.hero-image {
+  transition: transform 0.2s ease-out; /* Faster transition for more responsive feel */
+}
+
 /* Enhance parallax dots background */
 .hero-section::before {
   content: '';
