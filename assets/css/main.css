@@ -141,13 +141,15 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Hero Section */
 .hero-section {
-  padding: 6rem 0;
+  padding: 7rem 0 5rem;
   margin-bottom: 0;
   background: linear-gradient(135deg, var(--dark-color) 0%, #0c4a6e 100%);
   position: relative;
   overflow: hidden;
+  --scroll-offset: 0px;
 }
 
+/* Enhance parallax dots background */
 .hero-section::before {
   content: '';
   position: absolute;
@@ -157,17 +159,35 @@ h1, h2, h3, h4, h5, h6 {
   bottom: 0;
   background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23009cfb' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
   z-index: 0;
+  transition: transform 0.3s ease-out;
+  transform: translateY(var(--scroll-offset, 0px));
+}
+
+/* Add parallax layer for additional depth */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23009cfb' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  z-index: 0;
+  opacity: 0.7;
+  transform: translateY(var(--scroll-offset-deep, 0px));
+  transition: transform 0.3s ease-out;
 }
 
 .hero-section .container {
   position: relative;
-  z-index: 1;
+  z-index: 2;
 }
 
 .hero-section h1 {
   font-size: 3.5rem;
-  font-weight: 800;
+  font-weight: 700;
   margin-bottom: 1rem;
+  color: #fff;
   background: linear-gradient(90deg, #fff, #bae6fd);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -186,17 +206,46 @@ h1, h2, h3, h4, h5, h6 {
   transition: opacity 0.5s ease-out 0.2s, transform 0.5s ease-out 0.2s;
 }
 
+/* Buttons can animate in but should never be invisible */
 .hero-section .btn {
   opacity: 0;
   transform: translateY(20px);
   transition: opacity 0.5s ease-out 0.4s, transform 0.5s ease-out 0.4s, background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
+/* Smoothly style the hero buttons container */
+.hero-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease-out 0.3s, transform 0.5s ease-out 0.3s;
+  position: relative;
+  z-index: 10;
+}
+
+.hero-buttons.visible, 
+.hero-buttons .btn.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Special styling for hero buttons */
+.hero-buttons .btn {
+  opacity: inherit;
+  transform: inherit;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Improved hero image container with parallax effect */
 .hero-image-container {
   position: relative;
   transform: perspective(1000px);
   transform-style: preserve-3d;
   transition: var(--transition);
+  will-change: transform;
 }
 
 .hero-image {
@@ -204,6 +253,7 @@ h1, h2, h3, h4, h5, h6 {
   filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
   transition: var(--transition);
   transform: translateZ(20px);
+  will-change: transform;
 }
 
 .hero-background-shape {
@@ -215,7 +265,8 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 50%;
   background: radial-gradient(circle, rgba(0, 156, 251, 0.2) 0%, rgba(0, 156, 251, 0) 70%);
   transform: translateZ(-10px);
-  animation: pulse 4s infinite;
+  transition: transform 0.3s ease-out;
+  will-change: transform;
 }
 
 @keyframes pulse {
@@ -230,13 +281,144 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
+/* Parallax content sections */
+.content-section {
+  position: relative;
+  overflow: hidden;
+  padding: 6rem 0;
+}
+
+.content-section .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* Parallax section background */
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 0;
+  transform: translateZ(0);
+  will-change: transform;
+}
+
+/* Gradient section with parallax */
+.content-section.bg-gradient {
+  background: linear-gradient(135deg, #0c4a6e 0%, #0f172a 100%);
+  position: relative;
+  color: #fff;
+  overflow: hidden;
+}
+
+.content-section.bg-gradient::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3z' fill='%23fff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+  background-size: 60px 60px;
+  z-index: 1;
+  opacity: 0.7;
+  will-change: transform;
+}
+
+/* Enhanced badge items with parallax effect */
 .badge-item {
   display: inline-block;
   transition: var(--transition);
+  transform: translateZ(0);
+  will-change: transform;
 }
 
 .badge-item:hover {
   transform: translateY(-3px);
+}
+
+/* Enhanced feature cards with parallax hover */
+.feature-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem 1.5rem;
+  height: 100%;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+  will-change: transform, box-shadow;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 5px;
+  background: var(--primary-color);
+  z-index: -1;
+  transform: translateY(-5px);
+  transition: transform 0.3s ease;
+}
+
+.feature-card:hover::before {
+  transform: translateY(0);
+}
+
+/* Animate on scroll elements with parallax */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  will-change: opacity, transform;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Scroll-triggered animations with parallax */
+.scroll-animate-left {
+  opacity: 0;
+  transform: translateX(-30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-animate-right {
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-animate-fade {
+  opacity: 0;
+  transition: opacity 0.8s ease-out;
+  will-change: opacity;
+}
+
+.scroll-animate-scale {
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.scroll-animate-active {
+  opacity: 1;
+  transform: translateX(0) translateY(0) scale(1);
 }
 
 /* Content Sections */
