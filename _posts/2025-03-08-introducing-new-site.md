@@ -2,7 +2,7 @@
 layout: post
 title: "aiogram's New Website: Improved Access to Documentation, GitHub, and More"
 date: 2025-03-08 20:12:00 +0200
-author_id: aiogram
+author_id: aiogram_team
 tags: [update, news, community]
 ---
 
