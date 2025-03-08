@@ -10,7 +10,8 @@ group :jekyll_plugins do
   gem "jekyll-seo-tag", "~> 2.8.0"
   gem "jekyll-sitemap", "~> 1.4.0"
   gem "jekyll-paginate", "~> 1.1.0"
+  gem 'jekyll-admin', '~> 0.12.0'
 end
 
 # Required for GitHub Pages deployment
-gem "rake", "~> 13.0" 
+gem "rake", "~> 13.0"

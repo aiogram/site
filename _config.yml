@@ -62,6 +62,13 @@ plugins:
   - jekyll-seo-tag
   - jekyll-sitemap
   - jekyll-paginate
+  - jekyll-admin
+
+jekyll_admin:
+  hidden_links:
+    - pages
+    - configuration
+  homepage: "posts"
 
 # External links
 external_links:
@@ -79,6 +86,8 @@ exclude:
   - README.md
   - Gemfile
   - Gemfile.lock
+  - Rakefile
+  - .editorconfig
   - _blog/
   - idea/
   - .git/

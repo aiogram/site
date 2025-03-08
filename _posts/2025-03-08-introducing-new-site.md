@@ -1,9 +1,12 @@
 ---
+title: 'aiogram''s New Website: Improved Access to Documentation, GitHub, and More'
 layout: post
-title: "aiogram's New Website: Improved Access to Documentation, GitHub, and More"
-date: 2025-03-08 20:12:00 +0200
+date: '2025-03-08 20:12:00 +0200'
 author_id: aiogram_team
-tags: [ update, news, community ]
+tags:
+- update
+- news
+- community
 ---
 
 We're excited to announce that aiogram has a brand-new website designed to make your development
@@ -70,3 +73,8 @@ If you have suggestions for further improvements or content you'd like to see on
 please reach out through our GitHub issues or community channels.
 
 Thank you for being part of the aiogram community!
+
+
+```python
+print("Hello, World!")
+```
