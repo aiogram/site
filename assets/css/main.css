@@ -246,6 +246,19 @@ h1, h2, h3, h4, h5, h6 {
   transform-style: preserve-3d;
   transition: var(--transition);
   will-change: transform;
+  animation: floatContainer 8s ease-in-out infinite;
+}
+
+@keyframes floatContainer {
+  0% {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+  }
+  50% {
+    transform: perspective(1000px) rotateY(3deg) rotateX(2deg);
+  }
+  100% {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg);
+  }
 }
 
 .hero-image {
@@ -254,6 +267,19 @@ h1, h2, h3, h4, h5, h6 {
   transition: var(--transition);
   transform: translateZ(20px);
   will-change: transform;
+  animation: logoGlow 6s ease-in-out infinite;
+}
+
+@keyframes logoGlow {
+  0% {
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+  }
+  50% {
+    filter: drop-shadow(0 10px 25px rgba(0, 156, 251, 0.4));
+  }
+  100% {
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+  }
 }
 
 .hero-background-shape {
@@ -267,17 +293,21 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateZ(-10px);
   transition: transform 0.3s ease-out;
   will-change: transform;
+  animation: pulse 4s infinite;
 }
 
 @keyframes pulse {
   0% {
     transform: translateZ(-10px) scale(1);
+    opacity: 0.7;
   }
   50% {
     transform: translateZ(-10px) scale(1.1);
+    opacity: 1;
   }
   100% {
     transform: translateZ(-10px) scale(1);
+    opacity: 0.7;
   }
 }
 

@@ -28,8 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const parallaxElems = [
       { elem: heroSection, speed: 0.05, property: '--scroll-offset' },
       { elem: heroSection, speed: 0.08, property: '--scroll-offset-deep' },
-      { elem: heroImage, speed: -0.1, transform: true, base: 'translateZ(20px)' },
-      { elem: heroShape, speed: 0.15, transform: true, base: 'translateZ(-10px)' }
+      { elem: heroImage.parentNode, speed: -0.1, transform: true, base: 'translateZ(0px)' },
     ];
     
     // Sections with parallax backgrounds
