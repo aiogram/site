@@ -331,11 +331,21 @@ h1, h2, h3, h4, h5, h6 {
   }
 }
 
-/* Parallax content sections */
+/* Content Sections */
 .content-section {
+  padding: 3rem 0 3rem;
+  background-color: var(--light-color);
   position: relative;
   overflow: hidden;
-  padding: 6rem 0;
+}
+
+/* Reduce space between hero and first section */
+.content-section:first-of-type {
+  padding-top: 2rem;
+  margin-top: 0; /* Remove negative margin */
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.05); /* Add a subtle shadow */
 }
 
 .content-section .container {
@@ -393,7 +403,7 @@ h1, h2, h3, h4, h5, h6 {
 .feature-card {
   background: #fff;
   border-radius: 8px;
-  padding: 2rem 1.5rem;
+  padding: 1.75rem 1.25rem;
   height: 100%;
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -471,6 +481,11 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(0) translateY(0) scale(1);
 }
 
+/* Ensure all animate elements start invisible but animate in properly */
+.scroll-animate-fade:not(.scroll-animate-active) {
+  opacity: 0;
+}
+
 /* Content Sections */
 .content-section {
   padding: 5rem 0;
@@ -511,11 +526,12 @@ h1, h2, h3, h4, h5, h6 {
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
+/* Ensure section heading has proper styling */
 .section-heading {
-  font-size: 2.25rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
   position: relative;
+  margin-bottom: 2rem;
+  font-weight: 700;
+  font-size: 2.25rem;
   display: inline-block;
   padding-bottom: 0.5rem;
 }
@@ -523,12 +539,11 @@ h1, h2, h3, h4, h5, h6 {
 .section-heading::after {
   content: '';
   position: absolute;
-  left: 0;
   bottom: 0;
-  width: 4rem;
-  height: 4px;
-  background: var(--primary-color);
-  border-radius: 2px;
+  left: 0;
+  width: 50px;
+  height: 3px;
+  background-color: var(--primary-color);
 }
 
 .text-center .section-heading::after {
@@ -592,7 +607,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .feature-card h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
   font-weight: 600;
   color: var(--gray-900);
 }
@@ -1261,4 +1276,24 @@ a:hover .badge {
 .ukraine-badge-small {
   font-size: 0.75em;
   cursor: help;
+}
+
+/* Mobile optimizations for content sections */
+@media (max-width: 767px) {
+  .content-section {
+    padding: 2rem 0;
+  }
+
+  .content-section:first-of-type {
+    padding-top: 1.5rem;
+    border-radius: 0;
+  }
+
+  .section-heading {
+    margin-bottom: 1.5rem;
+  }
+
+  .feature-card {
+    margin-bottom: 0.5rem;
+  }
 }

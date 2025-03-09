@@ -12,6 +12,87 @@ document.addEventListener('DOMContentLoaded', function () {
     return new bootstrap.Popover(popoverTriggerEl);
   });
 
+  // Function to ensure features section is visible without scrolling
+  function ensureFeaturesVisible() {
+    const heroSection = document.querySelector('.hero-section');
+    const featuresSection = document.querySelector('.content-section.bg-light');
+    
+    if (heroSection && featuresSection) {
+      const viewportHeight = window.innerHeight;
+      const heroHeight = heroSection.offsetHeight;
+      const featuresSectionTop = featuresSection.getBoundingClientRect().top;
+      
+      // If features section is not visible in the viewport
+      if (featuresSectionTop >= viewportHeight) {
+        // Calculate how much we need to reduce the hero section
+        const reduction = featuresSectionTop - viewportHeight + 30; // Add 30px buffer
+        
+        // Apply the adjustment to make features visible
+        if (reduction > 0) {
+          const currentPadding = parseInt(window.getComputedStyle(heroSection).paddingBottom) || 0;
+          heroSection.style.paddingBottom = Math.max(0, currentPadding - reduction) + 'px';
+          
+          // If padding adjustment isn't enough, reduce height directly
+          if (featuresSectionTop >= viewportHeight) {
+            const newMaxHeight = heroHeight - (featuresSectionTop - viewportHeight + 30);
+            heroSection.style.maxHeight = Math.max(300, newMaxHeight) + 'px'; // Ensure at least 300px
+          }
+        }
+      }
+    }
+  }
+  
+  // Ensure features are visible on load and after any resize
+  ensureFeaturesVisible();
+  window.addEventListener('resize', ensureFeaturesVisible);
+  
+  // Force animations to start for Features section even without scrolling
+  function activateInitialAnimations() {
+    // First activate the Features heading
+    const featuresHeading = document.querySelector('.content-section.bg-light .section-heading');
+    if (featuresHeading) {
+      featuresHeading.classList.add('scroll-animate-active');
+    }
+    
+    // Then activate the feature cards with a slight delay for a staggered effect
+    setTimeout(() => {
+      // Activate animations for features section content
+      const featureElements = document.querySelectorAll('.content-section.bg-light .scroll-animate-scale, .content-section.bg-light .scroll-animate-fade');
+      featureElements.forEach((element, index) => {
+        // Add a tiny staggered delay for each card to create a wave effect
+        setTimeout(() => {
+          element.classList.add('scroll-animate-active');
+        }, index * 50); // 50ms delay between each card
+      });
+    }, 200); // 200ms delay after heading
+  }
+  
+  // Activate animations after a short delay to ensure everything has loaded
+  setTimeout(activateInitialAnimations, 300);
+
+  // Function to adjust layout for content visibility
+  function adjustLayoutForContentVisibility() {
+    const heroSection = document.querySelector('.hero-section');
+    const firstContentSection = document.querySelector('.content-section');
+    
+    if (heroSection && firstContentSection) {
+      const viewportHeight = window.innerHeight;
+      const heroHeight = heroSection.offsetHeight;
+      const contentSectionHeight = firstContentSection.offsetHeight;
+      
+      // If hero section is taking too much space and pushing content out of view
+      if (heroHeight > viewportHeight * 0.75 && contentSectionHeight > 100) {
+        // Adjust hero section to show at least some of the content section
+        const newHeroHeight = Math.max(viewportHeight * 0.65, 400); // Min height of 400px
+        heroSection.style.minHeight = `${newHeroHeight}px`;
+      }
+    }
+  }
+  
+  // Run on page load and window resize
+  adjustLayoutForContentVisibility();
+  window.addEventListener('resize', adjustLayoutForContentVisibility);
+
   // Parallax effect implementation
   const parallaxHandler = function () {
     const heroSection = document.querySelector('.hero-section');
@@ -26,9 +107,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Elements to animate with different speeds
     const parallaxElems = [
-      {elem: heroSection, speed: 0.05, property: '--scroll-offset'},
-      {elem: heroSection, speed: 0.08, property: '--scroll-offset-deep'},
-      {elem: heroImage.parentNode, speed: -0.1, transform: true, base: 'translateZ(0px)'},
+      {elem: heroSection, speed: 0.03, property: '--scroll-offset'},
+      {elem: heroSection, speed: 0.05, property: '--scroll-offset-deep'},
+      {elem: heroImage.parentNode, speed: -0.05, transform: true, base: 'translateZ(0px)'},
     ];
 
     // Sections with parallax backgrounds
@@ -36,7 +117,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (section.querySelector('.parallax-bg')) {
         parallaxElems.push({
           elem: section.querySelector('.parallax-bg'),
-          speed: 0.1,
+          speed: 0.05,
           transform: true
         });
       }
@@ -45,7 +126,7 @@ document.addEventListener('DOMContentLoaded', function () {
       if (section.classList.contains('bg-gradient')) {
         parallaxElems.push({
           elem: section,
-          speed: 0.05,
+          speed: 0.03,
           property: '--section-offset'
         });
       }
@@ -75,9 +156,10 @@ document.addEventListener('DOMContentLoaded', function () {
       // Apply transforms to parallax elements
       parallaxElems.forEach(item => {
         if (!item.elem) return;
-
-        const scrollOffset = lastScrollY * item.speed;
-
+        
+        // Calculate scroll offset with limitation to prevent extreme values
+        const scrollOffset = Math.min(lastScrollY * item.speed, 100); // Limit maximum offset
+        
         if (item.property) {
           // Use CSS custom property
           item.elem.style.setProperty(item.property, `${scrollOffset}px`);
@@ -133,13 +215,13 @@ document.addEventListener('DOMContentLoaded', function () {
     };
 
     // Listen for scroll events
-    window.addEventListener('scroll', function () {
+    window.addEventListener('scroll', function() {
       requestTick();
-
-      // Animate on scroll elements
+      
+      // Trigger animations earlier - at 90% of viewport height instead of 85%
       const animatedElements = document.querySelectorAll('.animate-on-scroll, .scroll-animate-left, .scroll-animate-right, .scroll-animate-fade, .scroll-animate-scale');
-      animatedElements.forEach(function (element) {
-        if (isElementInViewport(element)) {
+      animatedElements.forEach(function(element) {
+        if (isElementInViewport(element, 0.9)) { // Pass higher threshold for earlier activation
           if (element.classList.contains('animate-on-scroll')) {
             element.classList.add('visible');
           } else {
@@ -147,7 +229,7 @@ document.addEventListener('DOMContentLoaded', function () {
           }
         }
       });
-
+      
       // Ensure hero buttons always remain visible once shown
       if (heroButtons) {
         heroButtons.classList.add('visible');
@@ -155,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
           btn.classList.add('visible');
         });
       }
-
+      
       // Change navbar background on scroll
       const navbar = document.querySelector('.navbar');
       if (window.scrollY > 50) {
@@ -167,10 +249,13 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // Initialize parallax on page load
     applyParallax();
-
+    
     // Handle resize events to recalculate parallax values
-    window.addEventListener('resize', applyParallax);
-
+    window.addEventListener('resize', function() {
+      applyParallax();
+      // Also recheck if content is visible
+      adjustLayoutForContentVisibility();
+    });
 
     // Logo tilt effect implementation
     const initLogoTiltEffect = function () {
@@ -302,11 +387,11 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
-  // Helper function to check if an element is in the viewport
-  function isElementInViewport(el) {
+  // Helper function to check if an element is in the viewport with adjustable threshold
+  function isElementInViewport(el, thresholdPercent = 0.85) {
     const rect = el.getBoundingClientRect();
     return (
-      rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85 &&
+      rect.top <= (window.innerHeight || document.documentElement.clientHeight) * thresholdPercent &&
       rect.bottom >= 0
     );
   }
