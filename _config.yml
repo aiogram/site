@@ -31,6 +31,7 @@ defaults:
       path: ""
     values:
       layout: "default"
+      author_id: aiogram_team
   - scope:
       path: "_posts"
     values:
@@ -40,6 +41,15 @@ defaults:
       path: "blog/tag"
     values:
       layout: "tag"
+  - scope:
+     path: ""
+     type: "posts"
+    values:
+      layout: "post"
+
+      date: ":site.time"
+      title: "Blog's page"
+      tags: []
 
 # Blog settings
 blog:
