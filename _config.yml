@@ -46,8 +46,6 @@ defaults:
      type: "posts"
     values:
       layout: "post"
-
-      date: ":site.time"
       title: "Blog's page"
       tags: []
 
@@ -102,4 +100,3 @@ exclude:
   - idea/
   - .git/
   - .github/
-
