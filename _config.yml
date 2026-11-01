@@ -100,3 +100,5 @@ exclude:
   - idea/
   - .git/
   - .github/
+  - docs/
+  - CLAUDE.md
