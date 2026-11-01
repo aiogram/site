@@ -1,0 +1,87 @@
+---
+import Icon from '../Icon.astro';
+import CopyButton from '../CopyButton.astro';
+import { home, homeExtra } from '../../i18n/en';
+
+const { hero, install, badges } = home;
+---
+<section class="section hero" aria-labelledby="hero-title">
+  <div class="container hero-grid">
+    <div class="stack">
+      <h1 id="hero-title">{hero.title}<span class="sr-only"> — </span><span class="hero-sub">{hero.subtitle}</span></h1>
+      <p class="lead">{hero.lead}</p>
+      <div class="row">
+        <a class="btn btn-primary btn-lg" href={hero.primaryCta.href}>{hero.primaryCta.label} <Icon name="arrow-up-right" /></a>
+        <a class="btn btn-secondary btn-lg" href={hero.secondaryCta.href}><Icon name="github" /> {hero.secondaryCta.label}</a>
+      </div>
+      <div class="install-block">
+        <div class="install">
+          <fieldset class="pm">
+            <legend class="sr-only">{install.pmLegend}</legend>
+            <input type="radio" name="pm" id="pm-pip" class="sr-only" checked /><label for="pm-pip">{install.pmPip}</label>
+            <input type="radio" name="pm" id="pm-uv" class="sr-only" /><label for="pm-uv">{install.pmUv}</label>
+          </fieldset>
+          <code id="install-cmd" class="for-pip">{install.command}</code><CopyButton target="#install-cmd" label={install.copyLabel} class="for-pip" />
+          <code id="install-cmd-uv" class="for-uv">{install.installUv}</code><CopyButton target="#install-cmd-uv" label={install.copyLabelUv} class="for-uv" />
+        </div>
+        <p class="muted install-note">{install.note} · <a href={install.docsLink.href}>{install.docsLink.label}</a></p>
+      </div>
+      <ul class="badges" role="list" aria-label={homeExtra.badgesLabel}>
+        {badges.map((b) => (
+          <li>
+            <a href={b.href}>
+              <img src={b.src} alt={b.alt} width={b.width} height={b.height} loading="lazy" decoding="async" />
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+    <div class="hero-logo-wrap"><img class="hero-logo" src={homeExtra.logoPath} width="320" height="320" alt="" loading="lazy" decoding="async" /></div>
+  </div>
+</section>
+
+<style>
+  .hero { padding-top: var(--space-5); }
+  .hero-grid { display: grid; gap: var(--space-5); align-items: center; }
+  .hero-sub { display: block; margin-top: var(--space-2); font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem); font-weight: 500; letter-spacing: 0; color: var(--muted); }
+  .install-note { margin-top: var(--space-1); font-size: 0.875rem; }
+  .badges { display: flex; flex-wrap: wrap; gap: var(--space-2) var(--space-3); list-style: none; padding: 0; min-height: 20px; }
+  .badges li, .badges a { display: block; height: 20px; line-height: 0; }
+  .badges img { height: 20px; width: auto; }
+  .hero-logo-wrap { display: none; perspective: 1000px; }
+  .hero-logo { display: block; width: 220px; height: 220px; transition: transform 0.2s ease-out; will-change: transform; filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.3)); }
+  @media (min-width: 768px) {
+    .hero { padding-top: var(--space-6); }
+    .hero-grid { grid-template-columns: minmax(0, 1fr) auto; gap: var(--space-5); }
+    .hero-logo-wrap { display: block; }
+  }
+  @media (min-width: 1100px) {
+    .hero-grid { gap: var(--space-6); }
+    .hero-logo { width: 320px; height: 320px; }
+  }
+</style>
+
+<script>
+  // Coin tilt: pointer-driven only (fine pointer, no reduced motion), ported from the old site.
+  const box = document.querySelector<HTMLElement>('.hero-logo-wrap');
+  const img = box?.querySelector('img');
+  if (box && img && matchMedia('(pointer: fine)').matches && matchMedia('(prefers-reduced-motion: no-preference)').matches) {
+    let ev: MouseEvent | null = null, x = 0, y = 0, tx = 0, ty = 0;
+    const tick = () => {
+      if (box.getClientRects().length && ev) {
+        const r = box.getBoundingClientRect();
+        const dx = ev.clientX - (r.left + r.width / 2), dy = ev.clientY - (r.top + r.height / 2);
+        const near = Math.hypot(dx, dy) <= r.width * 1.5;
+        tx = near ? -Math.sin(dy / 80) * 8 : 0;
+        ty = near ? Math.sin(dx / 80) * 8 : 0;
+      } else tx = ty = 0;
+      x += (tx - x) * 0.25; y += (ty - y) * 0.25;
+      img.style.transform = `rotateX(${x}deg) rotateY(${y}deg)`;
+      ev = null;
+    };
+    let busy = false;
+    const go = (e: MouseEvent | null) => { ev = e; if (!busy) { busy = true; requestAnimationFrame(() => { busy = false; tick(); }); } };
+    document.addEventListener('mousemove', go);
+    document.addEventListener('mouseleave', () => go(null));
+  }
+</script>

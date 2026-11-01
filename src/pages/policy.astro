@@ -1,0 +1,40 @@
+---
+import Base from '../layouts/Base.astro';
+import Policy from '../components/Policy.astro';
+import { policyPage } from '../i18n/en';
+const x = policyPage.submit;
+---
+<Base title={policyPage.title} description={policyPage.description}>
+  <section class="section page">
+    <div class="container">
+      <header class="page-head">
+        <h1>{policyPage.heading}</h1>
+        <p class="lead">{policyPage.intro}</p>
+        <nav class="row pill-nav" aria-label={policyPage.heading}>
+          {policyPage.sections.map((s) => <a class="pill" href={`#${s.id}`}>{s.nav}</a>)}
+        </nav>
+      </header>
+      {policyPage.sections.map((s) => (
+        <section id={s.id} class="stack policy-section" aria-labelledby={`${s.id}-title`}>
+          <h2 id={`${s.id}-title`}>{s.title}</h2>
+          {s.id === 'listings' ? (
+            <>
+              <Policy plain />
+              <h3>{x.title}</h3>
+              <ul class="policy-plain">
+                {x.items.map((p) => (
+                  <li>{p.map((part) => (typeof part === 'string' ? part : <a href={part.href}>{part.t}</a>))}</li>
+                ))}
+              </ul>
+              <p><a href={x.fields.href}>{x.fields.label}</a></p>
+            </>
+          ) : (
+            s.paragraphs.map((p) => (
+              <p>{p.map((part) => (typeof part === 'string' ? part : <a href={part.href}>{part.t}</a>))}</p>
+            ))
+          )}
+        </section>
+      ))}
+    </div>
+  </section>
+</Base>

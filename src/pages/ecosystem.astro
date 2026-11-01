@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { ecosystem, policyNote } from '../i18n/en';
+
+const libs = (await getCollection('ecosystem')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+const groups = (Object.keys(ecosystem.categories) as (keyof typeof ecosystem.categories)[])
+  .map((cat) => ({ cat, items: libs.filter((l) => l.data.category === cat) }))
+  .filter((g) => g.items.length > 0);
+---
+<Base title={ecosystem.title} description={ecosystem.description}>
+  <section class="section page">
+    <div class="container">
+      <header class="page-head">
+        <h1>{ecosystem.heading}</h1>
+        <p class="lead">{ecosystem.intro} {policyNote.before}<a href={policyNote.link.href}>{policyNote.link.label}</a>{policyNote.after}</p>
+        <div class="row actions"><a class="btn btn-primary" href={ecosystem.add.href}>{ecosystem.add.label}</a></div>
+      </header>
+      {groups.length > 0 ? (
+        <div class="directory">
+          <fieldset class="filters">
+            <legend class="sr-only">{ecosystem.filter.legend}</legend>
+            <input type="radio" name="cat" id="cat-all" class="sr-only" checked /><label for="cat-all">{ecosystem.filter.all} ({libs.length})</label>
+            {groups.map(({ cat, items }) => (
+              <><input type="radio" name="cat" id={`cat-${cat}`} class="sr-only" /><label for={`cat-${cat}`}>{ecosystem.categories[cat]} ({items.length})</label></>
+            ))}
+          </fieldset>
+          <style set:html={groups.map(({ cat }) => `.directory:has(#cat-${cat}:checked) .group:not([data-cat="${cat}"]){display:none}`).join('')} />
+          <div class="groups">
+          {groups.map(({ cat, items }) => (
+            <section class="stack group" data-cat={cat} aria-labelledby={`heading-${cat}`}>
+              <h2 id={`heading-${cat}`}>{ecosystem.categories[cat]}</h2>
+              <ul class="grid grid-2 entries">
+                {items.map(({ data }) => (
+                  <li class="card">
+                    <h3><a href={data.repo}>{data.name}</a></h3>
+                    <p class="muted">{data.description}</p>
+                    <p class="row meta">
+                      {data.pypi && <a href={`https://pypi.org/project/${data.pypi}/`}>{ecosystem.labels.pypi}</a>}
+                      {data.maintainer && <span class="muted">{ecosystem.labels.maintainer} {data.maintainer}</span>}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
+          </div>
+        </div>
+      ) : (
+        <p class="muted">{ecosystem.empty}</p>
+      )}
+    </div>
+  </section>
+</Base>
+<style>
+  .groups { display: grid; gap: 3.5rem; } /* 56px between categories */
+  .entries { list-style: none; padding: 0; margin: 0; }
+  .entries h3 { font-size: 1.125rem; margin: 0 0 var(--space-1); }
+  .entries p { margin: 0; }
+  .entries .meta { margin-top: 12px; gap: var(--space-3); }
+</style>

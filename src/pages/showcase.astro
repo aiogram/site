@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import ShowcaseCard from '../components/directory/ShowcaseCard.astro';
+import { showcase, policyNote } from '../i18n/en';
+
+const items = (await getCollection('showcase')).sort((a, b) => a.data.name.localeCompare(b.data.name));
+---
+<Base title={showcase.title} description={showcase.description}>
+  <section class="section page">
+    <div class="container">
+      <header class="page-head">
+        <h1>{showcase.heading}</h1>
+        <p class="lead">{showcase.intro} {policyNote.before}<a href={policyNote.link.href}>{policyNote.link.label}</a>{policyNote.after}</p>
+        <div class="row actions"><a class="btn btn-primary" href={showcase.add.href}>{showcase.add.label}</a></div>
+      </header>
+      {items.length > 0 ? (
+        <div class="directory grid grid-3">
+          {items.map(({ data }) => (
+            <ShowcaseCard name={data.name} url={data.url} logo={data.logo} logoDark={data.logo_dark} description={data.description} bot={data.bot} />
+          ))}
+        </div>
+      ) : (
+        <p class="muted">{showcase.empty}</p>
+      )}
+    </div>
+  </section>
+</Base>

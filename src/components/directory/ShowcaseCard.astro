@@ -1,0 +1,33 @@
+---
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import { showcase } from '../../i18n/en';
+
+interface Props {
+  name: string;
+  url: string;
+  logo?: ImageMetadata;
+  logoDark?: ImageMetadata;
+  description: string;
+  bot?: string;
+}
+const { name, url, logo, logoDark, description, bot } = Astro.props;
+---
+<article class="card showcase-card">
+  {logo && <a href={url} class="logo-link" aria-label={name} tabindex="-1">
+    <Image src={logo} alt={name} height={48} class={logoDark ? 'only-light' : undefined} />
+    {logoDark && <Image src={logoDark} alt={name} height={48} class="only-dark" />}
+  </a>}
+  <h2><a href={url}>{name}</a></h2>
+  <p class="muted">{description}</p>
+  {bot && <p><span class="pill" title={showcase.labels.bot}>{bot}</span></p>}
+</article>
+<style>
+  .showcase-card { display: flex; flex-direction: column; gap: var(--space-2); }
+  .logo-link { display: block; height: 48px; }
+  .showcase-card :global(img) { height: 48px; width: auto; max-width: 100%; object-fit: contain; object-position: left; }
+  .showcase-card h2 { font-size: 1.125rem; margin: 0; }
+  .showcase-card p { margin: 0; }
+  :global([data-theme="light"]) .only-dark { display: none; }
+  :global(:root:not([data-theme="light"])) .only-light { display: none; }
+</style>

@@ -1,0 +1,29 @@
+---
+import { Code } from 'astro:components';
+import CopyButton from '../CopyButton.astro';
+import Icon from '../Icon.astro';
+import { home, homeExtra } from '../../i18n/en';
+
+const { quickStart } = home;
+---
+<section class="section" aria-labelledby="quick-start-title">
+  <div class="container">
+    <div class="section-head">
+      <h2 id="quick-start-title">{quickStart.title}</h2>
+      <p class="lead">{quickStart.intro}</p>
+    </div>
+    <div class="codeblock qs">
+      <div class="codeblock-head"><span>{quickStart.filename}</span><CopyButton target="#qs-code" label={quickStart.copyLabel} /></div>
+      <div id="qs-code"><Code code={quickStart.code} lang="python" themes={{ light: 'github-light', dark: 'github-dark-default' }} defaultColor={false} /></div>
+    </div>
+    <p class="row qs-links">
+      <a href={homeExtra.quickStartFull.href}>{homeExtra.quickStartFull.label} <Icon name="arrow-up-right" /></a>
+      <a href={quickStart.docsLink.href}>{quickStart.docsLink.label} <Icon name="arrow-up-right" /></a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .qs { max-width: 52rem; }
+  .qs-links { margin-top: var(--space-3); }
+</style>

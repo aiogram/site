@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import Hero from '../components/home/Hero.astro';
+import QuickStart from '../components/home/QuickStart.astro';
+import Features from '../components/home/Features.astro';
+import TrustedBy from '../components/home/TrustedBy.astro';
+import Community from '../components/home/Community.astro';
+import { home, homeExtra, links, site } from '../i18n/en';
+
+const orgId = `${site.url}/#organization`;
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': orgId,
+      name: site.name,
+      url: site.url,
+      logo: `${site.url}${homeExtra.logoPath}`,
+      sameAs: [homeExtra.githubOrg, links.pypi, links.chat, links.channel],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${site.url}/#website`,
+      name: site.name,
+      url: site.url,
+      publisher: { '@id': orgId },
+    },
+    {
+      '@type': 'SoftwareApplication',
+      name: site.name,
+      description: homeExtra.schema.appDescription,
+      url: site.url,
+      applicationCategory: 'DeveloperApplication',
+      operatingSystem: 'Any',
+      programmingLanguage: 'Python',
+      license: homeExtra.licenseUrl,
+      codeRepository: links.github,
+      downloadUrl: links.pypi,
+      offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+    },
+  ],
+};
+---
+<Base title={home.title} description={home.description} jsonLd={jsonLd}>
+  <Hero />
+  <QuickStart />
+  <Features />
+  <TrustedBy />
+  <Community />
+</Base>

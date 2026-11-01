@@ -1,0 +1,56 @@
+# Community libraries built on aiogram. Read the submission policy (docs/spec.md § 7) before adding one.
+# One entry per library, `id` = unique slug. Example:
+#
+# - id: aiogram-example
+#   name: aiogram-example
+#   repo: https://github.com/someone/aiogram-example   # https, open source
+#   pypi: aiogram-example                              # optional, PyPI project name
+#   description: One line, up to 140 characters.
+#   category: utilities   # ui | i18n | storage | testing | integrations | utilities | templates
+#   maintainer: "@someone" # optional
+#   added: 2026-11-01
+- id: aiogram-i18n
+  name: aiogram_i18n
+  repo: https://github.com/aiogram/i18n
+  pypi: aiogram-i18n
+  description: Official i18n middleware for aiogram 3 with Fluent and gettext backends, lazy translations and locale managers.
+  category: i18n
+  maintainer: "@aiogram"
+  added: 2026-11-01
+- id: magic-filter
+  name: magic-filter
+  repo: https://github.com/aiogram/magic-filter
+  pypi: magic-filter
+  description: Official declarative filter builder (F.text, F.photo, F.from_user.id.in_({...})) that powers aiogram 3 magic filters.
+  category: utilities
+  maintainer: "@aiogram"
+  added: 2026-11-01
+- id: django-aiogram
+  name: django-aiogram
+  repo: https://github.com/CorneiZeR/django-aiogram
+  pypi: django-aiogram
+  description: Run aiogram next to Django and send Telegram messages from anywhere via Redis, RabbitMQ or Kafka.
+  category: integrations
+  maintainer: "@CorneiZeR"
+  added: 2026-11-01
+- id: telegram-bot-template-donbarbos
+  name: telegram-bot-template
+  repo: https://github.com/donbarbos/telegram-bot-template
+  description: "Production-oriented bot template: Postgres, Redis, Docker, Prometheus/Grafana, Sentry, admin panel, i18n."
+  category: templates
+  maintainer: "@donbarbos"
+  added: 2026-11-01
+- id: aiogram-bot-template-wakaree
+  name: aiogram_bot_template
+  repo: https://github.com/wakaree/aiogram_bot_template
+  description: Bot template with PostgreSQL (asyncpg), SQLAlchemy, Alembic, Dishka DI, Redis FSM and Fluent i18n.
+  category: templates
+  maintainer: "@wakaree"
+  added: 2026-11-01
+- id: aiogram-template-andrew000
+  name: aiogram-template
+  repo: https://github.com/andrew000/aiogram-template
+  description: "Template: aiogram 3, Fluent i18n, SQLAlchemy and Alembic, PostgreSQL, Redis, Caddy, Docker, uv."
+  category: templates
+  maintainer: "@andrew000"
+  added: 2026-11-01

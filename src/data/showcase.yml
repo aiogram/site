@@ -1,0 +1,23 @@
+# Companies, products and bots running aiogram in production. Read the submission policy first.
+# Logo: src/assets/showcase/<id>.svg (SVG preferred; else PNG >= 400px wide, transparent, <= 50 KB).
+# Example:
+#
+# - id: acme
+#   name: Acme
+#   url: https://acme.example
+#   logo: ../assets/showcase/acme.svg
+#   logo_dark: ../assets/showcase/acme-dark.svg   # optional, used on the dark theme
+#   description: One line, up to 120 characters.
+#   bot: "@acme_bot"                             # optional
+#   added: 2026-11-01
+- id: vstorm-agenticos
+  name: Vstorm AgenticOS
+  url: https://github.com/vstorm-co/agenticos
+  description: Open-source, self-hosted platform by Vstorm (Poland) for building and governing AI agents, with a Telegram channel.
+  added: 2026-11-01
+- id: celestia
+  name: Celestia
+  url: https://t.me/AI_Celestia_bot
+  description: AI-powered Telegram group moderator with a WebApp, used in groups with 36k+ monthly users.
+  bot: "@AI_Celestia_bot"
+  added: 2026-11-01

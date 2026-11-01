@@ -1,0 +1,20 @@
+---
+import { policy } from '../i18n/en';
+const { heading = true, plain = false } = Astro.props;
+---
+{plain ? (
+  <>
+    <p>{policy.intro}</p>
+    <ol class="policy-plain">
+      {policy.rules.map((rule) => <li>{rule}</li>)}
+    </ol>
+  </>
+) : (
+  <section class="policy card" aria-labelledby={heading ? 'policy-title' : undefined} aria-label={heading ? undefined : policy.title}>
+    {heading && <h2 id="policy-title">{policy.title}</h2>}
+    <p>{policy.intro}</p>
+    <ol>
+      {policy.rules.map((rule) => <li>{rule}</li>)}
+    </ol>
+  </section>
+)}

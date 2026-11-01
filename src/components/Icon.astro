@@ -1,0 +1,51 @@
+---
+// Inline SVG icons, resolved at build time. Size = 1em (set font-size on a parent), color = currentColor.
+import arrowUpRight from 'lucide-static/icons/arrow-up-right.svg?raw';
+import bookOpen from 'lucide-static/icons/book-open.svg?raw';
+import braces from 'lucide-static/icons/braces.svg?raw';
+import bug from 'lucide-static/icons/bug.svg?raw';
+import check from 'lucide-static/icons/check.svg?raw';
+import copy from 'lucide-static/icons/copy.svg?raw';
+import filter from 'lucide-static/icons/filter.svg?raw';
+import gitBranch from 'lucide-static/icons/git-branch.svg?raw';
+import globe from 'lucide-static/icons/globe.svg?raw';
+import heart from 'lucide-static/icons/heart.svg?raw';
+import layers from 'lucide-static/icons/layers.svg?raw';
+import lightbulb from 'lucide-static/icons/lightbulb.svg?raw';
+import megaphone from 'lucide-static/icons/megaphone.svg?raw';
+import menu from 'lucide-static/icons/menu.svg?raw';
+import messageCircle from 'lucide-static/icons/message-circle.svg?raw';
+import moon from 'lucide-static/icons/moon.svg?raw';
+import packageIcon from 'lucide-static/icons/package.svg?raw';
+import route from 'lucide-static/icons/route.svg?raw';
+import send from 'lucide-static/icons/send.svg?raw';
+import shield from 'lucide-static/icons/shield.svg?raw';
+import sun from 'lucide-static/icons/sun.svg?raw';
+import x from 'lucide-static/icons/x.svg?raw';
+import { siGithub, siOpencollective, siPypi, siTelegram } from 'simple-icons';
+
+const lucide = {
+  'arrow-up-right': arrowUpRight, 'book-open': bookOpen, braces, bug, check, copy, filter,
+  'git-branch': gitBranch, globe, heart, layers, lightbulb, megaphone, menu,
+  'message-circle': messageCircle, moon, package: packageIcon, route, send, shield, sun, x,
+};
+const brands = { github: siGithub, opencollective: siOpencollective, pypi: siPypi, telegram: siTelegram };
+
+export type IconName = keyof typeof lucide | keyof typeof brands;
+
+interface Props {
+  name: IconName;
+  class?: string;
+}
+
+const { name, class: className } = Astro.props;
+const svg = (lucide as Record<string, string>)[name];
+const brand = (brands as Record<string, { path: string }>)[name];
+// No type check runs in CI (TS 7 vs astro check), so fail the build on typos instead.
+if (!svg && !brand) throw new Error(`Icon: unknown name "${name}"`);
+
+// Keep only the children of lucide's <svg>; we render our own root element.
+const inner = svg ? svg.slice(svg.indexOf('>', svg.indexOf('<svg')) + 1, svg.lastIndexOf('</svg>')) : `<path d="${brand!.path}"/>`;
+const strokeAttrs = svg ? { fill: 'none', stroke: 'currentColor', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' } : { fill: 'currentColor' };
+---
+<svg class:list={['icon', className]} viewBox="0 0 24 24" aria-hidden="true" focusable="false" {...strokeAttrs} set:html={inner} />
