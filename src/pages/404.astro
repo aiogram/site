@@ -1,0 +1,18 @@
+---
+import Base from '../layouts/Base.astro';
+import { notFound } from '../i18n/en';
+---
+<Base title={notFound.title} description={notFound.description} noindex>
+  <section class="section page">
+    <div class="container">
+      <header class="page-head">
+        <h1>{notFound.heading}</h1>
+        <p class="lead">{notFound.text}</p>
+        <div class="row actions">
+          <a class="btn btn-primary" href={notFound.docs.href}>{notFound.docs.label}</a>
+          <a class="btn btn-secondary" href={notFound.home.href}>{notFound.home.label}</a>
+        </div>
+      </header>
+    </div>
+  </section>
+</Base>

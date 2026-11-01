@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://aiogram.dev/sitemap-index.xml

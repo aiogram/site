@@ -1,0 +1,20 @@
+---
+import Icon from '../Icon.astro';
+import { home } from '../../i18n/en';
+
+const { features } = home;
+---
+<section class="section" aria-labelledby="features-title">
+  <div class="container">
+    <div class="section-head"><h2 id="features-title">{features.title}</h2></div>
+    <div class="grid grid-3">
+      {features.items.map((f) => (
+        <a class="card" href={f.href}>
+          <Icon name={f.icon} class="card-icon" />
+          <h3>{f.title}</h3>
+          <p>{f.text}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

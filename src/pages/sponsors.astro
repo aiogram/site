@@ -1,0 +1,41 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { sponsors, pagesExtra } from '../i18n/en';
+const x = pagesExtra.sponsors;
+const list = await getCollection('sponsors');
+---
+<Base title={sponsors.title} description={sponsors.description}>
+  <section class="section page">
+    <div class="container">
+      <header class="page-head">
+        <h1>{sponsors.heading}</h1>
+        <p class="lead">{sponsors.why}</p>
+        <div class="row actions">
+          <a class="btn btn-primary btn-lg" href={sponsors.cta.href}><Icon name="opencollective" /> {x.cta}</a>
+        </div>
+      </header>
+      {list.length > 0 && (
+        <section>
+          <div class="section-head"><h2>{x.currentTitle}</h2></div>
+          <div class="grid grid-3">
+            {list.map(({ data: s }) => (
+              <a class="card" href={s.url}>
+                {s.logo ? <Image src={s.logo} alt={s.name} height={48} loading="lazy" decoding="async" /> : <strong>{s.name}</strong>}
+              </a>
+            ))}
+          </div>
+        </section>
+      )}
+      <div class="closing">
+        <p class="muted">{x.thanks}</p>
+        <p class="muted">{x.more}</p>
+      </div>
+    </div>
+  </section>
+</Base>
+<style>
+  .closing p + p { margin-top: var(--space-2); }
+</style>

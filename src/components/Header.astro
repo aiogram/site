@@ -1,0 +1,34 @@
+---
+import Icon from './Icon.astro';
+import ThemeToggle from './ThemeToggle.astro';
+import { nav, site, ui } from '../i18n/en';
+
+const path = Astro.url.pathname;
+---
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <img src="/favicon.svg" width="32" height="32" alt="" />
+      <span class="brand-name">{site.name}</span>
+    </a>
+    <nav id="site-nav" class="site-nav" aria-label={nav.label}>
+      <ul>
+        {nav.items.map((item) => (
+          <li><a href={item.href} aria-current={path.startsWith(item.href) ? 'page' : undefined}>{item.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+    <div class="header-actions">
+      <a class="btn btn-primary" href={nav.docs.href}>
+        <Icon name="book-open" />
+        <span class="label-long">{nav.docs.label}</span>
+        <span class="label-short">{nav.docs.short}</span>
+      </a>
+      <a class="icon-btn" href={nav.github.href} aria-label={nav.github.label}><Icon name="github" /></a>
+      <ThemeToggle />
+      <button type="button" class="icon-btn menu-btn" data-menu-toggle aria-expanded="false" aria-controls="site-nav" aria-label={ui.menu}>
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+</header>

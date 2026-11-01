@@ -1,0 +1,29 @@
+---
+import Icon from '../Icon.astro';
+import { home } from '../../i18n/en';
+
+const { community } = home;
+---
+<section class="section" aria-labelledby="community-title">
+  <div class="container">
+    <div class="section-head"><h2 id="community-title">{community.title}</h2></div>
+    <div class="grid grid-3">
+      {community.tiles.map((t) => (
+        <a class="card" href={t.href}>
+          <Icon name={t.icon} class="card-icon" />
+          <h3>{t.title}</h3>
+          <span class="pill">{t.handle}</span>
+          <p>{t.text}</p>
+        </a>
+      ))}
+    </div>
+    <p class="sponsor muted">
+      <Icon name="heart" /> {community.sponsor.text}
+      <a href={community.sponsor.link.href}>{community.sponsor.link.label}</a>
+    </p>
+  </div>
+</section>
+
+<style>
+  .sponsor { margin-top: var(--space-4); }
+</style>

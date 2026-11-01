@@ -1,0 +1,41 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+import { community, pagesExtra } from '../i18n/en';
+const x = pagesExtra.community;
+const sections = [
+  { ...x.talk, items: community.channels.slice(0, 3) },
+  { ...x.contribute, items: community.channels.slice(3) },
+];
+---
+<Base title={community.title} description={community.description}>
+  <section class="section page">
+    <div class="container">
+      <header class="page-head">
+        <h1>{community.heading}</h1>
+        <p class="lead">{community.intro}</p>
+      </header>
+      {sections.map((s) => (
+        <section>
+          <div class="section-head">
+            <h2>{s.title}</h2>
+            <p class="muted">{s.text}</p>
+          </div>
+          <div class="grid grid-3">
+            {s.items.map((c) => (
+              <a class="card stack" href={c.href}>
+                <Icon name={c.icon} class="card-icon" />
+                <h3>{c.title}</h3>
+                <p class="muted">{c.text}</p>
+              </a>
+            ))}
+          </div>
+        </section>
+      ))}
+      <section class="prose">
+        <h2>{community.ask.title}</h2>
+        <ul>{community.ask.items.map((i) => <li>{i}</li>)}</ul>
+      </section>
+    </div>
+  </section>
+</Base>

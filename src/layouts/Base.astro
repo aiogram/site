@@ -1,0 +1,75 @@
+---
+import Head, { type Props as HeadProps } from '../components/Head.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site, ui } from '../i18n/en';
+import '../styles/global.css';
+
+type Props = HeadProps;
+
+const gtag = `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${site.gaId}');`;
+---
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <script is:inline>
+      (function () {
+        var d = document.documentElement, t = null;
+        try { t = localStorage.getItem('theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') t = matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        d.dataset.theme = t;
+        d.classList.add('js');
+      })();
+    </script>
+    <Head {...Astro.props} />
+    {import.meta.env.PROD && (
+      <>
+        <script is:inline type="text/partytown" src={`https://www.googletagmanager.com/gtag/js?id=${site.gaId}`}></script>
+        <script is:inline type="text/partytown" set:html={gtag} />
+      </>
+    )}
+  </head>
+  <body>
+    <a class="skip-link" href="#main">{ui.skipLink}</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+    <script is:inline>
+      (function () {
+        var root = document.documentElement;
+        function closeMenu() {
+          var nav = document.getElementById('site-nav'), b = document.querySelector('[data-menu-toggle]');
+          if (nav && b) { nav.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); }
+        }
+        document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeMenu(); });
+        document.addEventListener('click', function (e) {
+          var el = e.target instanceof Element ? e.target : null;
+          if (!el) return;
+          if (!el.closest('.site-header') || el.closest('.site-nav a')) closeMenu();
+          var btn;
+          if ((btn = el.closest('[data-theme-toggle]'))) {
+            var next = root.dataset.theme === 'light' ? 'dark' : 'light';
+            root.dataset.theme = next;
+            try { localStorage.setItem('theme', next); } catch (err) {}
+          } else if ((btn = el.closest('[data-menu-toggle]'))) {
+            var nav = document.getElementById(btn.getAttribute('aria-controls'));
+            if (nav) btn.setAttribute('aria-expanded', String(nav.classList.toggle('open')));
+          } else if ((btn = el.closest('[data-copy]'))) {
+            var src = btn.dataset.copy ? document.querySelector(btn.dataset.copy) : null;
+            var text = btn.dataset.copyText || (src ? src.textContent : '') || '';
+            var label = btn.querySelector('[data-copy-label]') || btn;
+            var b = btn;
+            navigator.clipboard.writeText(text.trim()).then(function () {
+              if (!label.dataset.label) label.dataset.label = label.textContent;
+              label.textContent = b.dataset.copied || 'Copied';
+              clearTimeout(b.copyTimer);
+              b.copyTimer = setTimeout(function () { label.textContent = label.dataset.label; }, 1500);
+            });
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>

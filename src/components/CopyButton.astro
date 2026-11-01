@@ -1,0 +1,18 @@
+---
+// Copies the text of the element matched by `target` (CSS selector), or `text`. Hidden without JS.
+import Icon from './Icon.astro';
+import { ui } from '../i18n/en';
+
+interface Props {
+  target?: string;
+  text?: string;
+  label?: string;
+  class?: string;
+}
+
+const { target = '', text, label, class: cls } = Astro.props;
+---
+<button type="button" class:list={['copy-btn', cls]} data-copy={target} data-copy-text={text} data-copied={ui.copied} aria-label={label}>
+  <Icon name="copy" />
+  <span data-copy-label aria-live="polite">{ui.copy}</span>
+</button>

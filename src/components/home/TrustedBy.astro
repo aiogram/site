@@ -1,0 +1,45 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import Icon from '../Icon.astro';
+import { home, showcase } from '../../i18n/en';
+
+const entries = (await getCollection('showcase')).filter((e) => e.data.logo).sort((a, b) => a.data.added.getTime() - b.data.added.getTime());
+const shown = entries.slice(0, 8);
+const { trustedBy } = home;
+---
+{entries.length >= 4 && (
+  <section class="section" aria-labelledby="trusted-title">
+    <div class="container">
+      <div class="section-head">
+        <h2 id="trusted-title">{trustedBy.title}</h2>
+        <p class="muted">{showcase.intro}</p>
+      </div>
+      <ul class="logos" role="list">
+        {shown.map(({ data }) => (
+          <li>
+            <a href={data.url} class:list={['logo', data.logo_dark ? 'has-dark' : 'no-dark']}>
+              <Image class="logo-light" src={data.logo!} alt={data.name} height={32} loading="lazy" />
+              {data.logo_dark && <Image class="logo-dark" src={data.logo_dark} alt="" height={32} loading="lazy" />}
+            </a>
+          </li>
+        ))}
+      </ul>
+      <p class="more"><a href={trustedBy.more.href}>{trustedBy.more.label} <Icon name="arrow-up-right" /></a></p>
+    </div>
+  </section>
+)}
+
+<style>
+  .logos { display: flex; flex-wrap: wrap; gap: var(--space-3) var(--space-5); list-style: none; padding: 0; align-items: center; }
+  .logo { display: inline-flex; align-items: center; min-height: 44px; padding: var(--space-1) var(--space-2); border-radius: var(--radius-sm); }
+  .logo :global(img) { height: 32px; width: auto; max-width: 160px; }
+  /* Two variants: show the dark one on the dark theme (default), the light one on the light theme. */
+  .logo :global(.logo-dark) { display: none; }
+  .has-dark :global(.logo-light) { display: block; }
+  :global(:root:not([data-theme="light"])) .has-dark :global(.logo-light) { display: none; }
+  :global(:root:not([data-theme="light"])) .has-dark :global(.logo-dark) { display: block; }
+  /* Single logo on the dark theme: put it on a light tile so dark artwork stays visible. */
+  :global(:root:not([data-theme="light"])) .no-dark { background: #fff; }
+  .more { margin-top: var(--space-4); }
+</style>

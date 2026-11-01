@@ -1,0 +1,8 @@
+# Project sponsors. Logo (optional): src/assets/sponsors/<id>.svg. Example:
+#
+# - id: acme
+#   name: Acme
+#   url: https://acme.example
+#   logo: ../assets/sponsors/acme.svg   # optional
+#   tier: gold                          # optional
+[]
