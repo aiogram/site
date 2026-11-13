@@ -1,3 +1,4 @@
+pip install pyTelegramBotAPI
 # Companies, products and bots running aiogram in production. Read the submission policy first.
 # Logo: src/assets/showcase/<id>.svg (SVG preferred; else PNG >= 400px wide, transparent, <= 50 KB).
 # Example:
